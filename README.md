@@ -24,7 +24,7 @@ Ensure your project meets all requirements before submitting:
 ---
 
 ## 🔗 Important Links
-*   **Live Demo UI**: [stellar-prediction-market-level-5.vercel.app](https://stellar-prediction-market-level-5.vercel.app/)
+*   **Live Demo UI**: [Stellar Predict App](https://stellar-prediction-market-level-5.vercel.app/) *(Will be updated to new Vercel link once deployed)*
 *   **Metrics Dashboard**: `[Link to Dashboard Soon]`
 *   **Architecture Document**: [ARCHITECTURE.md](./ARCHITECTURE.md)
 *   **MVP Demo Video**: 👉 [Watch the Loom Demo Video](https://www.loom.com/share/cd5dfb1ff78a4526890882e7f014e246) 👈
@@ -86,7 +86,7 @@ Based on feedback, we completed one iteration and planned the next phase:
 2. **Wallet UX**: Auto-reconnect and better error handling.
 3. **Mobile Layer**: Touch-friendly interactions.
 
-🔗 **Improvement Commit:** [View on GitHub](https://github.com/harshaljagdale0222/stellar-prediction-market-level-5/commit/7f9ade8)
+🔗 **Improvement Commit:** [View on GitHub](https://github.com/harshaljagdale0222/stellar-prediction-market)
 
 ---
 
@@ -121,4 +121,4 @@ Based on feedback, we completed one iteration and planned the next phase:
 
 ---
 
-*Developed for the Stellar Level 5 Milestone.*
+*Developed for the Stellar Level 6 (Black Belt) Milestone.*
