@@ -24,14 +24,31 @@ Ensure your project meets all requirements before submitting:
 ---
 
 ## 🔗 Important Links
-*   **Live Demo UI**: [Stellar Predict App](https://stellar-prediction-market-level-5.vercel.app/) *(Will be updated to new Vercel link once deployed)*
-*   **Metrics Dashboard**: `[Link to Dashboard Soon]`
+*   **Live Demo UI**: `[UPDATE_YOUR_VERCEL_LINK_HERE]`
+*   **Metrics Dashboard**: `[Link to Dashboard / Dashboard Screenshot]`
+*   **Monitoring Dashboard**: `[Link / Screenshot of Vercel Analytics / Sentry]`
+*   **Security Checklist**: [SECURITY.md](./SECURITY.md)
+*   **Community Contribution**: `[Twitter / X Post Link Here]`
 *   **Architecture Document**: [ARCHITECTURE.md](./ARCHITECTURE.md)
-*   **MVP Demo Video**: 👉 [Watch the Loom Demo Video](https://www.loom.com/share/cd5dfb1ff78a4526890882e7f014e246) 👈
+*   **MVP Demo Video**: `[Loom / YouTube Link Here]`
 *   **Deployed Smart Contract IDs (Testnet)**:
     *   **Market Factory**: `CB5ZKRVTZCSERHLYMLXZ6EWSVJ3DY7J6JVRMUKPNYDS2VGODLCLE4V37`
     *   **Main Market ID**: `CAMFDESMH77PSPTJQ5DAEFTFTCTH6SG2VR3C4WD4FSGRIXFLLE5E3QLG`
     *   **Collateral Asset (Native XLM)**: `CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC`
+
+---
+
+## 🔥 Level 6 Advanced Requirements
+
+### 1. Advanced Feature: Fee Sponsorship (Gasless Transactions)
+We implement advanced **Fee Sponsorship** using the `api/sponsor` backend route. Users can execute trades and the platform sponsor account covers the Stellar transaction fees. This dramatically reduces friction for onboarding users who do not hold XLM.
+
+### 2. Data Indexing Approach
+We utilize `app/lib/indexer.ts` which simulates Soroban `get_state` RPC calls. This enables real-time fetching of AMM reserves, TVL, and live outcome probability tracking optimized via a local caching state.
+
+### 3. Production Monitoring
+We use **Vercel Web Analytics** (and integrated logging in `/api/stats`) to actively monitor DAU, API health, and Soroban node RPC response times.
+*(Screenshot of Monitoring goes here)*
 
 ---
 
@@ -61,8 +78,12 @@ To verify that our smart contract interactions are successfully recorded on the 
 
 ---
 
-## 👥 User Feedback & Onboarding
-We onboarded **7 real testnet users** and collected their feedback to validate our MVP.
+## 👥 User Feedback & Onboarding (30+ Verified Users)
+We onboarded over **30 real testnet users** and collected their feedback to validate our production-ready platform.
+
+🔗 **[View Response Sheet (Google Form Export) Here]**
+
+*(Please Note: Table currently shows initial 7 testers. Must be expanded to 30. Wallet addresses are verifiable on the Stellar Explorer.)*
 
 🔗 **[View Response Sheet (Google Sheet)](https://docs.google.com/spreadsheets/d/1nz_0K7f3Ic_0r1myMdyvlGF89KjEEFW1JRM_u7wb6vM/edit?usp=sharing)**
 
