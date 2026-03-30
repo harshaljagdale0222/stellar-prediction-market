@@ -29,7 +29,7 @@ function Navbar({ address, onOpenModal }: { address: string | null; onOpenModal:
         <div className="hidden md:flex items-center gap-6 text-sm text-slate-400">
           <Link href="/" className="hover:text-white transition-colors">Markets</Link>
           <Link href="/create" className="hover:text-white transition-colors">Create Market</Link>
-          <a href="#" className="hover:text-white transition-colors">Portfolio</a>
+          <Link href="/dashboard" className="hover:text-white transition-colors">Dashboard</Link>
         </div>
 
         <div className="flex items-center gap-3">
