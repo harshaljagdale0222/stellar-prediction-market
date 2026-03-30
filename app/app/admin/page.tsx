@@ -2,14 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { formatCurrency, shortenAddress } from "@/lib/stellar";
-import { 
-  Users, 
-  TrendingUp, 
-  Activity, 
-  ShieldCheck,
-  ArrowLeft,
-  ExternalLink
-} from "lucide-react";
 import Link from "next/link";
 
 interface Stats {
@@ -61,7 +53,7 @@ export default function AdminDashboard() {
       <div className="max-w-7xl mx-auto mb-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <Link href="/" className="inline-flex items-center text-purple-400 hover:text-purple-300 mb-2 transition-colors">
-            <ArrowLeft className="w-4 h-4 mr-2" />
+            <span className="mr-2">←</span>
             Back to App
           </Link>
           <h1 className="text-4xl font-bold bg-gradient-to-r from-white to-purple-400 bg-clip-text text-transparent">
@@ -80,28 +72,28 @@ export default function AdminDashboard() {
         <StatCard 
           title="Total Active Users" 
           value={stats?.totalUsers || 0} 
-          icon={<Users className="w-6 h-6 text-blue-400" />}
+          icon={<span className="text-xl">👥</span>}
           label="Tracked Wallets"
           color="blue"
         />
         <StatCard 
           title="Total Volume" 
           value={formatCurrency(stats?.totalVolume || 0)} 
-          icon={<TrendingUp className="w-6 h-6 text-green-400" />}
+          icon={<span className="text-xl">📈</span>}
           label="Historical Trading"
           color="green"
         />
         <StatCard 
           title="Markets Active" 
           value={stats?.activeMarkets || 0} 
-          icon={<Activity className="w-6 h-6 text-purple-400" />}
+          icon={<span className="text-xl">⚡</span>}
           label="Soroban Contracts"
           color="purple"
         />
         <StatCard 
           title="Security Status" 
           value="100%" 
-          icon={<ShieldCheck className="w-6 h-6 text-orange-400" />}
+          icon={<span className="text-xl">🛡️</span>}
           label="Checklist Completed"
           color="orange"
         />
@@ -142,7 +134,7 @@ export default function AdminDashboard() {
                         target="_blank"
                         className="text-gray-400 hover:text-white transition-colors"
                       >
-                        <ExternalLink className="w-4 h-4" />
+                        <span className="text-gray-400 hover:text-white">🔗</span>
                       </a>
                     </td>
                   </tr>
