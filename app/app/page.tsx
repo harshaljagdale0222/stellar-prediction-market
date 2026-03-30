@@ -101,7 +101,9 @@ function MarketCard({ market }: { market: MarketMeta }) {
 
   return (
     <Link href={`/markets/${market.id}`}>
-      <div className="glass rounded-2xl p-5 hover:border-violet-500/30 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-violet-500/10 group cursor-pointer h-full flex flex-col">
+      <div className="glass rounded-3xl p-6 border-white/5 hover:border-violet-500/50 hover:bg-white/[0.03] transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-violet-500/20 group cursor-pointer h-full flex flex-col relative overflow-hidden">
+        {/* Glow behind the card on hover */}
+        <div className="absolute inset-0 bg-gradient-to-b from-violet-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
         {/* Header */}
         <div className="flex items-start justify-between gap-3 mb-4">
           <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-600/20 to-cyan-600/20 border border-white/10 flex items-center justify-center text-2xl shrink-0">
@@ -133,9 +135,9 @@ function MarketCard({ market }: { market: MarketMeta }) {
             <span className="text-cyan-400 font-bold">{yesPercent}% YES</span>
             <span className="text-pink-400 font-bold">{noPercent}% NO</span>
           </div>
-          <div className="h-2 rounded-full bg-white/5 overflow-hidden">
+          <div className="h-2 rounded-full bg-slate-800/50 overflow-hidden ring-1 ring-white/5">
             <div
-              className="h-full rounded-full bg-gradient-to-r from-cyan-400 to-cyan-600 transition-all duration-700"
+              className="h-full rounded-full bg-gradient-to-r from-cyan-400 via-violet-400 to-pink-400 transition-all duration-1000 ease-out shadow-[0_0_10px_rgba(34,211,238,0.5)]"
               style={{ width: `${yesPercent}%` }}
             />
           </div>
