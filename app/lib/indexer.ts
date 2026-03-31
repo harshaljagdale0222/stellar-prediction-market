@@ -22,9 +22,9 @@ export async function syncAllMarkets() {
       // Note: Assuming the contract has a 'get_reserves' function
       const reserves = await queryContract(market.contractAddress, "get_reserves", []);
       
-      if (reserves) {
+      if (Array.isArray(reserves) && reserves.length >= 3) {
         // reserves might be [yes_reserve, no_reserve, lp_reserve]
-        const [yes, no, lp] = reserves;
+        const [yes, no, lp] = reserves as [unknown, unknown, unknown];
         
         // Update local DB
         updateMarket(market.id, {
@@ -41,10 +41,11 @@ export async function syncAllMarkets() {
       // 2. Check Resolve Status
       const isResolved = await queryContract(market.contractAddress, "is_resolved", []);
       if (isResolved) {
-        const outcome = await queryContract(market.contractAddress, "get_outcome", []);
+        const outcomeRaw = await queryContract(market.contractAddress, "get_outcome", []);
+        const outcomeValue = Array.isArray(outcomeRaw) ? Number(outcomeRaw[0]) : 0;
         updateMarket(market.id, { 
           resolved: true, 
-          outcome: outcome === 1 ? "YES" : "NO" 
+          outcome: outcomeValue === 1 ? "YES" : "NO" 
         });
       }
 
@@ -54,7 +55,7 @@ export async function syncAllMarkets() {
   }
 }
 
-async function queryContract(contractId: string, method: string, args: any[]) {
+async function queryContract(contractId: string, method: string, args: any[]): Promise<any[] | null> {
   try {
     const tx = await rpcServer.getLatestLedger();
     // Simulate call
