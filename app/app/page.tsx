@@ -30,6 +30,7 @@ function Navbar({ address, onOpenModal }: { address: string | null; onOpenModal:
           <Link href="/" className="hover:text-white transition-colors">Markets</Link>
           <Link href="/create" className="hover:text-white transition-colors">Create Market</Link>
           <Link href="/dashboard" className="hover:text-white transition-colors">Dashboard</Link>
+          <Link href="/stats" className="hover:text-white transition-colors">Live Metrics</Link>
         </div>
 
         <div className="flex items-center gap-3">

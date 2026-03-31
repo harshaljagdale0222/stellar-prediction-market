@@ -58,7 +58,12 @@ export default function CreateMarketPage() {
               <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-cyan-400 flex items-center justify-center text-sm font-bold">⭐</div>
               <span className="font-bold text-lg tracking-tight gradient-text">StellarPredict</span>
             </Link>
-            <Link href="/" className="hidden sm:block text-sm text-slate-400 hover:text-white transition-colors">← Dashboard</Link>
+            <div className="hidden md:flex items-center gap-6 text-sm text-slate-400">
+              <Link href="/" className="hover:text-white transition-colors">Markets</Link>
+              <Link href="/create" className="text-white font-semibold">Create Market</Link>
+              <Link href="/dashboard" className="hover:text-white transition-colors">Dashboard</Link>
+              <Link href="/stats" className="hover:text-white transition-colors">Live Metrics</Link>
+            </div>
           </div>
           
           <div className="flex items-center gap-3">

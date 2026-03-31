@@ -20,6 +20,7 @@ function DashboardNavbar({ address, onOpenModal }: { address: string | null; onO
           <Link href="/" className="hover:text-white transition-colors">Markets</Link>
           <Link href="/create" className="hover:text-white transition-colors">Create Market</Link>
           <Link href="/dashboard" className="text-white border-b-2 border-violet-500 pb-1">Dashboard</Link>
+          <Link href="/stats" className="hover:text-white transition-colors">Live Metrics</Link>
         </div>
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-1.5 text-xs text-slate-500">
