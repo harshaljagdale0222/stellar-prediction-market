@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { getAllMarkets, createMarket } from "@/lib/db";
 
+export const revalidate = 30; // Cache for 30 seconds
+
 export async function GET() {
   const markets = await getAllMarkets();
   return NextResponse.json({ markets });

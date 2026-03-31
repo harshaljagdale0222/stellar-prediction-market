@@ -1,11 +1,12 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { MarketMeta } from "@/lib/db";
 import { formatCurrency, shortenAddress } from "@/lib/stellar";
 import WalletModal from "@/app/components/WalletModal";
 import { useWallet } from "@/app/context/WalletContext";
+
 
 // ──────────────────────────────────────────────────────────────────────────────
 // Toast Notification
@@ -61,18 +62,18 @@ function Navbar({ address, onOpenModal }: { address: string | null; onOpenModal:
 // ──────────────────────────────────────────────────────────────────────────────
 function StatsBar({ stats }: { stats: any }) {
   const items = [
-    { label: "Total Markets", value: stats?.totalMarkets ?? "—" },
-    { label: "Active", value: stats?.activeMarkets ?? "—" },
-    { label: "Total Volume", value: stats ? formatCurrency(stats.totalVolume) : "—" },
-    { label: "Total Liquidity", value: stats ? formatCurrency(stats.totalLiquidity) : "—" },
+    { label: "Total Markets", value: stats?.totalMarkets ?? "0" },
+    { label: "Active", value: stats?.activeMarkets ?? "0" },
+    { label: "Total Volume", value: stats ? formatCurrency(stats.totalVolume) : "0" },
+    { label: "Total Liquidity", value: stats ? formatCurrency(stats.totalLiquidity) : "0" },
   ];
   return (
-    <div className="glass border-b border-white/5 sticky top-16 z-40">
-      <div className="max-w-7xl mx-auto px-6 h-12 flex items-center gap-8 overflow-x-auto text-sm">
+    <div className="glass border-b border-white/5 relative z-40 bg-slate-950/50 mt-16">
+      <div className="max-w-7xl mx-auto px-6 h-14 flex items-center gap-8 overflow-x-auto text-sm no-scrollbar">
         {items.map((item) => (
           <div key={item.label} className="flex items-center gap-2 shrink-0">
-            <span className="text-slate-500">{item.label}:</span>
-            <span className="text-white font-semibold">{item.value}</span>
+            <span className="text-slate-500 font-medium">{item.label}:</span>
+            <span className="text-white font-bold">{item.value}</span>
           </div>
         ))}
       </div>
@@ -226,15 +227,20 @@ export default function HomePage() {
   const [showWalletModal, setShowWalletModal] = useState(false);
 
   useEffect(() => {
+    // Fetch markets & stats in parallel
     Promise.all([
       fetch("/api/markets").then((r) => r.json()),
       fetch("/api/stats").then((r) => r.json()),
-    ]).then(([mData, sData]) => {
-      setMarkets(mData.markets ?? []);
-      setStats(sData.stats);
-      setLoading(false);
-    });
+    ])
+      .then(([mData, sData]) => {
+        const loaded = mData.markets ?? [];
+        setMarkets(loaded);
+        setStats(sData.stats ?? null);
+      })
+      .catch(console.error)
+      .finally(() => setLoading(false));
   }, []);
+
 
   const categories = ["All", ...Array.from(new Set(markets.map((m) => m.category)))];
   const filtered = filter === "All" ? markets : markets.filter((m) => m.category === filter);
