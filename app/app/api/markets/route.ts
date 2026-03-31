@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { getAllMarkets, createMarket } from "@/lib/db";
 
 export async function GET() {
-  const markets = getAllMarkets();
+  const markets = await getAllMarkets();
   return NextResponse.json({ markets });
 }
 
@@ -14,7 +14,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
   }
 
-  const market = createMarket({
+  const market = await createMarket({
     contractAddress,
     title,
     description: description ?? "",

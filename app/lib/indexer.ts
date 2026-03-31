@@ -9,7 +9,7 @@ const rpcServer = new rpc.Server(RPC_URL);
  * with their actual state on the Stellar Soroban blockchain.
  */
 export async function syncAllMarkets() {
-  const markets = getAllMarkets();
+  const markets = await getAllMarkets();
   console.log(`Starting sync for ${markets.length} markets...`);
 
   for (const market of markets) {
@@ -18,21 +18,18 @@ export async function syncAllMarkets() {
 
       console.log(`Syncing market: ${market.title} (${market.contractAddress})`);
       
-      // 1. Fetch Reserves (Simulate a call to 'get_state' or equivalent)
-      // Note: Assuming the contract has a 'get_reserves' function
+      // 1. Fetch Reserves
       const reserves = await queryContract(market.contractAddress, "get_reserves", []);
       
       if (Array.isArray(reserves) && reserves.length >= 3) {
-        // reserves might be [yes_reserve, no_reserve, lp_reserve]
         const [yes, no, lp] = reserves as [unknown, unknown, unknown];
         
         // Update local DB
-        updateMarket(market.id, {
+        await updateMarket(market.id, {
           yesVolume: Number(yes) / 10000000,
           noVolume: Number(no) / 10000000,
           liquidity: Number(lp) / 10000000,
           volume: (Number(yes) + Number(no)) / 10000000,
-          // Update prices based on AMM formula
           yesPrice: Number(no) / (Number(yes) + Number(no)),
           noPrice: Number(yes) / (Number(yes) + Number(no)),
         });
@@ -43,7 +40,7 @@ export async function syncAllMarkets() {
       if (isResolved) {
         const outcomeRaw = await queryContract(market.contractAddress, "get_outcome", []);
         const outcomeValue = Array.isArray(outcomeRaw) ? Number(outcomeRaw[0]) : 0;
-        updateMarket(market.id, { 
+        await updateMarket(market.id, { 
           resolved: true, 
           outcome: outcomeValue === 1 ? "YES" : "NO" 
         });

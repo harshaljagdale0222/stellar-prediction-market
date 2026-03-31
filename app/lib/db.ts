@@ -1,8 +1,11 @@
-import fs from "fs";
-import path from "path";
+import { Redis } from "@upstash/redis";
 
-const DB_PATH = path.join(process.cwd(), "data", "markets.json");
-const USERS_PATH = path.join(process.cwd(), "data", "users.json");
+// Initialize Redis client using Vercel environment variables
+// Vercel usually provides KV_REST_API_URL or STORAGE_REST_API_URL based on the prefix
+const redis = new Redis({
+  url: process.env.STORAGE_REST_API_URL || process.env.KV_REST_API_URL || "",
+  token: process.env.STORAGE_REST_API_TOKEN || process.env.KV_REST_API_TOKEN || "",
+});
 
 export interface MarketMeta {
   id: string;
@@ -23,29 +26,26 @@ export interface MarketMeta {
   createdAt: string;
 }
 
-function ensureDb() {
-  const dir = path.dirname(DB_PATH);
-  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-  if (!fs.existsSync(DB_PATH)) {
-    const seed: MarketMeta[] = [
-      {
-        id: "1",
-        contractAddress: "CAMFDESMH77PSPTJQ5DAEFTFTCTH6SG2VR3C4WD4FSGRIXFLLE5E3QLG",
-        title: "Bitcoin surpasses $150,000 before July 2026?",
-        description: "Will Bitcoin's price exceed $150,000 USD on any major exchange before July 1st, 2026?",
-        category: "Crypto",
-        emoji: "₿",
-        endDate: "2026-07-01",
-        yesPrice: 0.62,
-        noPrice: 0.38,
-        yesVolume: 79600,
-        noVolume: 48800,
-        volume: 128400,
-        liquidity: 45200,
-        resolved: false,
-        createdAt: new Date().toISOString(),
-      },
-      {
+// Initial Seed Data (for first-time setup or if Redis is empty)
+const SEED_MARKETS: MarketMeta[] = [
+    {
+      id: "1",
+      contractAddress: "CAMFDESMH77PSPTJQ5DAEFTFTCTH6SG2VR3C4WD4FSGRIXFLLE5E3QLG",
+      title: "Bitcoin surpasses $150,000 before July 2026?",
+      description: "Will Bitcoin's price exceed $150,000 USD on any major exchange before July 1st, 2026?",
+      category: "Crypto",
+      emoji: "₿",
+      endDate: "2026-07-01",
+      yesPrice: 0.62,
+      noPrice: 0.38,
+      yesVolume: 79600,
+      noVolume: 48800,
+      volume: 128400,
+      liquidity: 45200,
+      resolved: false,
+      createdAt: new Date().toISOString(),
+    },
+    {
         id: "2",
         contractAddress: "CAMFDESMH77PSPTJQ5DAEFTFTCTH6SG2VR3C4WD4FSGRIXFLLE5E3QLG",
         title: "Ethereum ETF approved by SEC in 2026?",
@@ -61,118 +61,76 @@ function ensureDb() {
         liquidity: 31000,
         resolved: false,
         createdAt: new Date().toISOString(),
-      },
-      {
-        id: "3",
-        contractAddress: "CAMFDESMH77PSPTJQ5DAEFTFTCTH6SG2VR3C4WD4FSGRIXFLLE5E3QLG",
-        title: "India wins 2026 FIFA World Cup?",
-        description: "Will the Indian national football team win the 2026 FIFA World Cup?",
-        category: "Sports",
-        emoji: "⚽",
-        endDate: "2026-07-19",
-        yesPrice: 0.04,
-        noPrice: 0.96,
-        yesVolume: 8600,
-        noVolume: 206400,
-        volume: 215000,
-        liquidity: 88000,
-        resolved: false,
-        createdAt: new Date().toISOString(),
-      },
-      {
-        id: "4",
-        contractAddress: "CAMFDESMH77PSPTJQ5DAEFTFTCTH6SG2VR3C4WD4FSGRIXFLLE5E3QLG",
-        title: "Global temperature record broken in 2026?",
-        description: "Will 2026 set a new global average surface temperature record, surpassing 2024?",
-        category: "Climate",
-        emoji: "🌡️",
-        endDate: "2026-12-31",
-        yesPrice: 0.58,
-        noPrice: 0.42,
-        yesVolume: 25636,
-        noVolume: 18564,
-        volume: 44200,
-        liquidity: 18500,
-        resolved: false,
-        createdAt: new Date().toISOString(),
-      },
-      {
-        id: "5",
-        contractAddress: "CAMFDESMH77PSPTJQ5DAEFTFTCTH6SG2VR3C4WD4FSGRIXFLLE5E3QLG",
-        title: "Stellar XLM reaches $1 before 2027?",
-        description: "Will the price of Stellar Lumens (XLM) surpass $1.00 USD before January 1st, 2027?",
-        category: "Crypto",
-        emoji: "⭐",
-        endDate: "2026-12-31",
-        yesPrice: 0.31,
-        noPrice: 0.69,
-        yesVolume: 21018,
-        noVolume: 46782,
-        volume: 67800,
-        liquidity: 22000,
-        resolved: false,
-        createdAt: new Date().toISOString(),
-      },
-    ];
-    fs.writeFileSync(DB_PATH, JSON.stringify(seed, null, 2));
+    }
+];
+
+export async function getAllMarkets(): Promise<MarketMeta[]> {
+  try {
+    const markets = await redis.get<MarketMeta[]>("markets");
+    if (!markets) {
+      // If empty, initialize with seed
+      await redis.set("markets", SEED_MARKETS);
+      return SEED_MARKETS;
+    }
+    return markets;
+  } catch (e) {
+    console.error("Redis Error:", e);
+    return SEED_MARKETS; // Fallback
   }
 }
 
-export function getAllMarkets(): MarketMeta[] {
-  ensureDb();
-  const raw = fs.readFileSync(DB_PATH, "utf-8");
-  return JSON.parse(raw);
-}
-
-export function getMarketById(id: string): MarketMeta | null {
-  const markets = getAllMarkets();
+export async function getMarketById(id: string): Promise<MarketMeta | null> {
+  const markets = await getAllMarkets();
   return markets.find((m) => m.id === id) ?? null;
 }
 
-export function createMarket(data: Omit<MarketMeta, "id" | "createdAt">): MarketMeta {
-  const markets = getAllMarkets();
+export async function createMarket(data: Omit<MarketMeta, "id" | "createdAt">): Promise<MarketMeta> {
+  const markets = await getAllMarkets();
   const newMarket: MarketMeta = {
     ...data,
     id: String(Date.now()),
     createdAt: new Date().toISOString(),
   };
   markets.push(newMarket);
-  fs.writeFileSync(DB_PATH, JSON.stringify(markets, null, 2));
+  await redis.set("markets", markets);
   return newMarket;
 }
 
-export function updateMarket(id: string, patch: Partial<MarketMeta>): MarketMeta | null {
-  const markets = getAllMarkets();
+export async function updateMarket(id: string, patch: Partial<MarketMeta>): Promise<MarketMeta | null> {
+  const markets = await getAllMarkets();
   const idx = markets.findIndex((m) => m.id === id);
   if (idx === -1) return null;
   markets[idx] = { ...markets[idx], ...patch };
-  fs.writeFileSync(DB_PATH, JSON.stringify(markets, null, 2));
+  await redis.set("markets", markets);
   return markets[idx];
 }
 
 // User Tracking for Level 6
-export function logUser(address: string) {
-  const dir = path.dirname(USERS_PATH);
-  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-  
-  let users: string[] = [];
-  if (fs.existsSync(USERS_PATH)) {
-    users = JSON.parse(fs.readFileSync(USERS_PATH, "utf-8"));
-  }
-  
-  if (!users.includes(address)) {
-    users.push(address);
-    fs.writeFileSync(USERS_PATH, JSON.stringify(users, null, 2));
+export async function logUser(address: string) {
+  try {
+    const users = (await redis.get<string[]>("users")) || [];
+    if (!users.includes(address)) {
+      users.push(address);
+      await redis.set("users", users);
+    }
+  } catch (e) {
+    console.error("Redis User Error:", e);
   }
 }
 
-export function getUserCount(): number {
-  if (!fs.existsSync(USERS_PATH)) return 0;
-  const users = JSON.parse(fs.readFileSync(USERS_PATH, "utf-8"));
-  return users.length;
+export async function getUserCount(): Promise<number> {
+  try {
+    const users = await redis.get<string[]>("users");
+    return users ? users.length : 0;
+  } catch (e) {
+    return 0;
+  }
 }
 
-export function getAllUsers(): string[] {
-  if (!fs.existsSync(USERS_PATH)) return [];
-  return JSON.parse(fs.readFileSync(USERS_PATH, "utf-8"));
+export async function getAllUsers(): Promise<string[]> {
+  try {
+    return (await redis.get<string[]>("users")) || [];
+  } catch (e) {
+    return [];
+  }
 }
