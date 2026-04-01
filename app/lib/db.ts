@@ -244,8 +244,11 @@ export async function getAllMarkets(): Promise<MarketMeta[]> {
       return SEED_MARKETS;
     }
     const markets = await redis.get<MarketMeta[]>("markets");
-    if (!markets || markets.length < 3) {
-      // Seed if empty or outdated (fewer than 3 markets)
+    // Force re-seed if database is empty, outdated, or contains markets with missing addresses
+    const needsReseed = !markets || markets.length < 3 || markets.some(m => !m.contractAddress || m.contractAddress.length < 10);
+    
+    if (needsReseed) {
+      console.log("Database cleanup: Re-seeding markets with correct contract IDs.");
       await redis.set("markets", SEED_MARKETS);
       return SEED_MARKETS;
     }
