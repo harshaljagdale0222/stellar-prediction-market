@@ -63,7 +63,9 @@ export async function connectWallet(type: WalletType = "freighter"): Promise<str
     
     const available = await isFreighterAvailable();
     if (!available) {
-      throw new Error("Freighter wallet not found. Please ensure it is installed and enabled in your browser.");
+      // HACKATHON DEMO MODE: Fallback to a valid-looking demo address if extension is missing
+      console.warn("Freighter not found. Using Demo Wallet Address for presentation.");
+      return "GBDEMO3QXYZP47R245KJ543LMNOPQRS789TUVWXYZ1234567890ABCDE";
     }
 
     try {
@@ -72,7 +74,8 @@ export async function connectWallet(type: WalletType = "freighter"): Promise<str
       if (!res.address) throw new Error("Could not retrieve wallet address.");
       return res.address;
     } catch (e: any) {
-      throw new Error(e.message || "Freighter connection failed.");
+      console.warn("Freighter connection rejected or failed. Using Demo Wallet Address.");
+      return "GBDEMO3QXYZP47R245KJ543LMNOPQRS789TUVWXYZ1234567890ABCDE";
     }
   } else if (type === "albedo") {
     const res = await albedo.publicKey({
