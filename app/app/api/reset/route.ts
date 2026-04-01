@@ -9,6 +9,7 @@ const redis = new Redis({
 
 export async function GET() {
   try {
+    if (!redis) throw new Error("Redis (KV) is not configured in Vercel environment variables.");
     await redis.set("markets", SEED_MARKETS);
     return NextResponse.json({ success: true, message: "Markets reset to real Seed ID: CAMF..." });
   } catch (e: any) {

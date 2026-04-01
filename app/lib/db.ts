@@ -1,10 +1,12 @@
 import { Redis } from "@upstash/redis";
 
 // Initialize Redis client using Vercel environment variables
-const redis = new Redis({
-  url: process.env.STORAGE_REST_API_URL || process.env.KV_REST_API_URL || "",
-  token: process.env.STORAGE_REST_API_TOKEN || process.env.KV_REST_API_TOKEN || "",
-});
+const redisUrl = process.env.STORAGE_REST_API_URL || process.env.KV_REST_API_URL;
+const redisToken = process.env.STORAGE_REST_API_TOKEN || process.env.KV_REST_API_TOKEN;
+
+// Emergency Fallback: If Redis is not configured, don't crash, just use memory/seed.
+const redis = (redisUrl && redisToken) ? new Redis({ url: redisUrl, token: redisToken }) : null;
+
 
 export interface MarketMeta {
   id: string;
@@ -237,6 +239,10 @@ export const SEED_MARKETS: MarketMeta[] = [
 
 export async function getAllMarkets(): Promise<MarketMeta[]> {
   try {
+    if (!redis) {
+      console.warn("Redis not configured. Using SEED_MARKETS only.");
+      return SEED_MARKETS;
+    }
     const markets = await redis.get<MarketMeta[]>("markets");
     if (!markets || markets.length < 3) {
       // Seed if empty or outdated (fewer than 3 markets)
@@ -263,7 +269,7 @@ export async function createMarket(data: Omit<MarketMeta, "id" | "createdAt">): 
     createdAt: new Date().toISOString(),
   };
   markets.push(newMarket);
-  await redis.set("markets", markets);
+  if (redis) await redis.set("markets", markets);
   return newMarket;
 }
 
@@ -272,18 +278,20 @@ export async function updateMarket(id: string, patch: Partial<MarketMeta>): Prom
   const idx = markets.findIndex((m) => m.id === id);
   if (idx === -1) return null;
   markets[idx] = { ...markets[idx], ...patch };
-  await redis.set("markets", markets);
+  markets[idx] = { ...markets[idx], ...patch };
+  if (redis) await redis.set("markets", markets);
   return markets[idx];
 }
 
 // Force reset markets to full seed (call via admin API)
 export async function resetMarketsToSeed(): Promise<void> {
-  await redis.set("markets", SEED_MARKETS);
+  if (redis) await redis.set("markets", SEED_MARKETS);
 }
 
 // User Tracking for Level 6
 export async function logUser(address: string) {
   try {
+    if (!redis) return;
     const users = (await redis.get<string[]>("users")) || [];
     if (!users.includes(address)) {
       users.push(address);
@@ -296,6 +304,7 @@ export async function logUser(address: string) {
 
 export async function getUserCount(): Promise<number> {
   try {
+    if (!redis) return 0;
     const users = await redis.get<string[]>("users");
     return users ? users.length : 0;
   } catch (e) {
@@ -305,6 +314,7 @@ export async function getUserCount(): Promise<number> {
 
 export async function getAllUsers(): Promise<string[]> {
   try {
+    if (!redis) return [];
     return (await redis.get<string[]>("users")) || [];
   } catch (e) {
     return [];
