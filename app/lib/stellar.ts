@@ -172,14 +172,14 @@ export function calcBuyNo(
 }
 
 export function formatCurrency(n: number | undefined | null): string {
-  if (n === undefined || n === null) return "$0.00";
+  if (n === undefined || n === null || isNaN(n)) return "$0.00";
   if (n >= 1_000_000) return `$${(n / 1_000_000).toFixed(2)}M`;
   if (n >= 1_000) return `$${(n / 1_000).toFixed(1)}K`;
   return `$${n.toFixed(2)}`;
 }
 
 export function formatProbability(p: number | undefined | null): string {
-  if (p === undefined || p === null) return "0.0%";
+  if (p === undefined || p === null || isNaN(p)) return "50.0%";
   return `${(p * 100).toFixed(1)}%`;
 }
 

@@ -246,11 +246,15 @@ export async function getAllMarkets(): Promise<MarketMeta[]> {
       return SEED_MARKETS;
     }
     const markets = await redis.get<MarketMeta[]>("markets");
-    // Force re-seed if database is empty, outdated, or contains markets with missing addresses/liquidity
-    const needsReseed = !markets || markets.length < 3 || markets.some(m => !m.contractAddress || m.contractAddress.length < 10 || m.liquidity < 10);
+    
+    // Mission Critical: Deep-Scrub for NaN corruption or missing data
+    const containsNan = markets?.some(m => 
+      isNaN(m.volume) || isNaN(m.liquidity) || isNaN(m.yesPrice) || isNaN(m.yesVolume) || isNaN(m.noVolume)
+    );
+    const needsReseed = !markets || markets.length < 3 || containsNan || markets.some(m => !m.contractAddress || m.contractAddress.length < 10 || m.liquidity < 10);
     
     if (needsReseed) {
-      console.log("Database cleanup: Re-seeding markets with correct contract IDs.");
+      console.warn("CRITICAL: Redis data corruption (NaN) or missing data detected. Performing recursive recovery...");
       await redis.set("markets", SEED_MARKETS);
       return SEED_MARKETS;
     }
