@@ -245,18 +245,38 @@ export async function getAllMarkets(): Promise<MarketMeta[]> {
       console.warn("Redis not configured. Using SEED_MARKETS only.");
       return SEED_MARKETS;
     }
-    const markets = await redis.get<MarketMeta[]>("markets");
+    let markets = await redis.get<MarketMeta[]>("markets");
     
-    // Mission Critical: Deep-Scrub for NaN corruption or missing data
-    const containsNan = markets?.some(m => 
-      isNaN(m.volume) || isNaN(m.liquidity) || isNaN(m.yesPrice) || isNaN(m.yesVolume) || isNaN(m.noVolume)
-    );
-    const needsReseed = !markets || markets.length < 3 || containsNan || markets.some(m => !m.contractAddress || m.contractAddress.length < 10 || m.liquidity < 10);
-    
-    if (needsReseed) {
-      console.warn("CRITICAL: Redis data corruption (NaN) or missing data detected. Performing recursive recovery...");
+    // Mission Critical: Deep-Repair without data-loss
+    if (!markets || markets.length < 3) {
       await redis.set("markets", SEED_MARKETS);
       return SEED_MARKETS;
+    }
+
+    let modified = false;
+    const repairedMarkets = markets.map(m => {
+      let rep = { ...m };
+      // Case 1: missing/broken contract ID
+      if (!rep.contractAddress || rep.contractAddress.length < 10) {
+        rep.contractAddress = "CAMFDESMH77PSPTJQ5DAEFTFTCTH6SG2VR3C4WD4FSGRIXFLLE5E3QLG";
+        modified = true;
+      }
+      // Case 2: Broken AMM Liquidity (Ensure reserves are never 0)
+      if (!rep.liquidity || rep.liquidity < 1 || isNaN(rep.liquidity)) {
+        rep.liquidity = 50000;
+        modified = true;
+      }
+      // Case 3: Volume repair for NaN
+      if (isNaN(rep.volume)) { rep.volume = 1000; modified = true; }
+      if (isNaN(rep.yesVolume)) { rep.yesVolume = 500; modified = true; }
+      if (isNaN(rep.noVolume)) { rep.noVolume = 500; modified = true; }
+      
+      return rep;
+    });
+
+    if (modified) {
+      await redis.set("markets", repairedMarkets);
+      return repairedMarkets;
     }
     return markets;
   } catch (e) {
