@@ -63,9 +63,7 @@ export async function connectWallet(type: WalletType = "freighter"): Promise<str
     
     const available = await isFreighterAvailable();
     if (!available) {
-      // HACKATHON DEMO MODE: Fallback to a valid-looking demo address if extension is missing
-      console.warn("Freighter not found. Using Demo Wallet Address for presentation.");
-      return "GBDEMO3QXYZP47R245KJ543LMNOPQRS789TUVWXYZ1234567890ABCDE";
+      throw new Error("Freighter wallet not found. Please ensure it is installed and enabled in your browser.");
     }
 
     try {
@@ -74,8 +72,7 @@ export async function connectWallet(type: WalletType = "freighter"): Promise<str
       if (!res.address) throw new Error("Could not retrieve wallet address.");
       return res.address;
     } catch (e: any) {
-      console.warn("Freighter connection rejected or failed. Using Demo Wallet Address.");
-      return "GBDEMO3QXYZP47R245KJ543LMNOPQRS789TUVWXYZ1234567890ABCDE";
+      throw new Error(e.message || "Freighter connection failed.");
     }
   } else if (type === "albedo") {
     const res = await albedo.publicKey({
@@ -123,16 +120,16 @@ export function calcBuyYes(
   feeBps = 100 // 1%
 ): { yesOut: number; priceImpact: number; newYesPrice: number } {
   const amountInWithFee = collateralIn * (10000 - feeBps) / 10000;
-  const yesFromPool = reserveYes - (reserveYes * reserveNo) / (reserveNo + amountInWithFee);
+  const yesFromPool = (reserveNo + amountInWithFee) === 0 ? 0 : reserveYes - (reserveYes * reserveNo) / (reserveNo + amountInWithFee);
   const totalYesOut = collateralIn + yesFromPool;
 
-  const oldYesPrice = reserveNo / (reserveYes + reserveNo);
+  const oldYesPrice = (reserveYes + reserveNo) === 0 ? 0.5 : reserveNo / (reserveYes + reserveNo);
   const newReserveYes = reserveYes - yesFromPool;
   const newReserveNo = reserveNo + amountInWithFee;
-  const newYesPrice = newReserveNo / (newReserveYes + newReserveNo);
+  const newYesPrice = (newReserveYes + newReserveNo) === 0 ? 0.5 : newReserveNo / (newReserveYes + newReserveNo);
 
-  const priceImpact = Math.abs((newYesPrice - oldYesPrice) / oldYesPrice) * 100;
-  return { yesOut: totalYesOut, priceImpact, newYesPrice };
+  const priceImpact = oldYesPrice === 0 ? 0 : Math.abs((newYesPrice - oldYesPrice) / oldYesPrice) * 100;
+  return { yesOut: totalYesOut, priceImpact: isNaN(priceImpact) ? 0 : priceImpact, newYesPrice };
 }
 
 // Simulate AMM sell YES → collateral out
@@ -143,15 +140,15 @@ export function calcSellYes(
   feeBps = 100
 ): { yesIn: number; priceImpact: number; newYesPrice: number } {
   if (collateralOut >= reserveNo) return { yesIn: Infinity, priceImpact: 100, newYesPrice: 0 };
-  const xFee = (reserveYes * reserveNo) / (reserveNo - collateralOut) - reserveYes;
+  const xFee = (reserveNo - collateralOut) === 0 ? 0 : (reserveYes * reserveNo) / (reserveNo - collateralOut) - reserveYes;
   const x = xFee / (1 - feeBps / 10000);
   const yesIn = x + collateralOut;
-  const oldYesPrice = reserveNo / (reserveYes + reserveNo);
+  const oldYesPrice = (reserveYes + reserveNo) === 0 ? 0.5 : reserveNo / (reserveYes + reserveNo);
   const newReserveYes = reserveYes + x;
   const newReserveNo = reserveNo - collateralOut;
-  const newYesPrice = newReserveNo / (newReserveYes + newReserveNo);
-  const priceImpact = Math.abs((newYesPrice - oldYesPrice) / oldYesPrice) * 100;
-  return { yesIn, priceImpact, newYesPrice };
+  const newYesPrice = (newReserveYes + newReserveNo) === 0 ? 0.5 : newReserveNo / (newReserveYes + newReserveNo);
+  const priceImpact = oldYesPrice === 0 ? 0 : Math.abs((newYesPrice - oldYesPrice) / oldYesPrice) * 100;
+  return { yesIn, priceImpact: isNaN(priceImpact) ? 0 : priceImpact, newYesPrice };
 }
 
 // Simulate AMM buy NO → collateral in
@@ -162,17 +159,17 @@ export function calcBuyNo(
   feeBps = 100
 ): { noOut: number; priceImpact: number; newYesPrice: number } {
   const amountInWithFee = collateralIn * (10000 - feeBps) / 10000;
-  const noFromPool = reserveNo - (reserveYes * reserveNo) / (reserveYes + amountInWithFee);
+  const noFromPool = (reserveYes + amountInWithFee) === 0 ? 0 : reserveNo - (reserveYes * reserveNo) / (reserveYes + amountInWithFee);
   const totalNoOut = collateralIn + noFromPool;
 
-  const oldNoPrice = reserveYes / (reserveYes + reserveNo);
+  const oldNoPrice = (reserveYes + reserveNo) === 0 ? 0.5 : reserveYes / (reserveYes + reserveNo);
   const newReserveNo = reserveNo - noFromPool;
   const newReserveYes = reserveYes + amountInWithFee;
-  const newNoPrice = newReserveYes / (newReserveYes + newReserveNo);
+  const newNoPrice = (newReserveYes + newReserveNo) === 0 ? 0.5 : newReserveYes / (newReserveYes + newReserveNo);
   const newYesPrice = 1 - newNoPrice; // yesPrice + noPrice = 1
 
-  const priceImpact = Math.abs((newNoPrice - oldNoPrice) / oldNoPrice) * 100;
-  return { noOut: totalNoOut, priceImpact, newYesPrice };
+  const priceImpact = oldNoPrice === 0 ? 0 : Math.abs((newNoPrice - oldNoPrice) / oldNoPrice) * 100;
+  return { noOut: totalNoOut, priceImpact: isNaN(priceImpact) ? 0 : priceImpact, newYesPrice };
 }
 
 export function formatCurrency(n: number | undefined | null): string {

@@ -172,52 +172,18 @@ function TradingPanel({
       onOpenWallet();
       return;
     }
+    if (!market.contractAddress) {
+      onToast("This market is not fully deployed yet (Missing Contract Address).", "warn");
+      return;
+    }
     if (!parsedAmount) {
       onToast("Please enter an amount.", "warn");
       return;
     }
     setLoading(true);
 
-    const actionRef = tab as "buy_yes" | "buy_no" | "sell_yes" | "add_liquidity";
-
-    // ────────────────────────────────────────────────────────
-    // DEMO MODE HACKATHON FIX: Fake the transaction entirely 
-    // if the market's database entry lacks a real contract address
-    // ────────────────────────────────────────────────────────
-    if (!market.contractAddress) {
-      setTimeout(() => {
-        const fakeTxHash = "demo_tx_" + Math.random().toString(36).substring(2, 15);
-        setTxInfo({ hash: fakeTxHash, msg: `Successfully processed ${tab.replace('_', ' ').toUpperCase()} (Demo)` });
-        
-        confetti({
-          particleCount: 150,
-          spread: 70,
-          origin: { y: 0.6 },
-          colors: ["#8b5cf6", "#0ea5e9", "#ec4899", "#facc15"],
-        });
-
-        onToast("Successful trade! 🚀", "success");
-
-        const newPrice = preview.newYesPrice ?? market.yesPrice;
-        const patchData: Partial<MarketMeta> = {
-          yesPrice: newPrice,
-          noPrice: 1 - newPrice,
-          volume: market.volume + parsedAmount,
-          yesVolume: market.yesVolume + (actionRef === "buy_yes" ? parsedAmount : 0),
-          noVolume: market.noVolume + (actionRef === "buy_no" ? parsedAmount : 0),
-          liquidity: market.liquidity + (actionRef === "add_liquidity" ? parsedAmount : 0),
-        };
-
-        onTradeSuccess(patchData);
-        setLoading(false);
-      }, 1500); // Wait 1.5 seconds to simulate real blockchain latency
-      return;
-    }
-
-    // ────────────────────────────────────────────────────────
-    // REAL BLOCKCHAIN TRANSACTION
-    // ────────────────────────────────────────────────────────
     try {
+      const actionRef = tab as "buy_yes" | "buy_no" | "sell_yes" | "add_liquidity";
       const { txHash, message } = await submitTrade({
         contractAddress: market.contractAddress,
         action: actionRef,
