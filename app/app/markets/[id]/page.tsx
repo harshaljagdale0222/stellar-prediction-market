@@ -327,7 +327,7 @@ function TradingPanel({
             ✅ {txInfo.msg}
           </p>
           <p className="text-slate-500 text-xs font-mono break-all">
-            {txInfo.hash.slice(0, 32)}…
+            {txInfo.hash ? `${txInfo.hash.slice(0, 32)}…` : ''}
           </p>
         </div>
       ) : (
@@ -580,9 +580,9 @@ export default function MarketPage() {
               <div className="text-xs text-slate-500 mb-1">Contract</div>
               <div
                 className="text-xs font-mono text-violet-300 truncate"
-                title={market.contractAddress}
+                title={market.contractAddress || ""}
               >
-                {market.contractAddress.slice(0, 12)}…
+                {market.contractAddress ? `${market.contractAddress.slice(0, 12)}…` : "Not deployed"}
               </div>
             </div>
           </div>
