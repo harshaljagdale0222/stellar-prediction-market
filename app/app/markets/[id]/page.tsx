@@ -172,10 +172,6 @@ function TradingPanel({
       onOpenWallet();
       return;
     }
-    if (!market.contractAddress) {
-      onToast("This market is not fully deployed yet (Missing Contract Address).", "warn");
-      return;
-    }
     if (!parsedAmount) {
       onToast("Please enter an amount.", "warn");
       return;
@@ -184,8 +180,12 @@ function TradingPanel({
 
     try {
       const actionRef = tab as "buy_yes" | "buy_no" | "sell_yes" | "add_liquidity";
+      
+      // Use the market's contract address OR fallback to the default global contract deployed for this project
+      const finalContractAddress = market.contractAddress || "CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC";
+
       const { txHash, message } = await submitTrade({
-        contractAddress: market.contractAddress,
+        contractAddress: finalContractAddress,
         action: actionRef,
         amount: parsedAmount,
         walletAddress: walletAddress!,
