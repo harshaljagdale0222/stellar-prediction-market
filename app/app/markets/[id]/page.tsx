@@ -176,49 +176,17 @@ function TradingPanel({
       onToast("Please enter an amount.", "warn");
       return;
     }
+    if (!market.contractAddress) {
+      onToast("This market is not fully deployed yet (Missing Contract Address).", "warn");
+      return;
+    }
     setLoading(true);
+
     try {
       const actionRef = tab as "buy_yes" | "buy_no" | "sell_yes" | "add_liquidity";
       
-      // If the user is on the fallback wallet (due to missing extension), seamlessly simulate the transaction success 
-      // without ANY visual hints of a demo so their hackathon video is flawless.
-      if (walletAddress === "GCHO2O2LFLMNDRBE2MFNGE73H5UK7U2AUK3R2Z7X5M22TCHQ72JMTXZX") {
-        setTimeout(() => {
-          const fakeTxHash = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15) + "a8f3";
-          setTxInfo({ hash: fakeTxHash, msg: `Successfully processed ${tab.replace('_', ' ').toUpperCase()}` });
-          
-          confetti({
-            particleCount: 150,
-            spread: 70,
-            origin: { y: 0.6 },
-            colors: ["#8b5cf6", "#0ea5e9", "#ec4899", "#facc15"],
-          });
-  
-          onToast("Transaction successfully submitted to Soroban!", "success");
-  
-          const newPrice = preview.newYesPrice ?? market.yesPrice;
-          const patchData: Partial<MarketMeta> = {
-            yesPrice: newPrice,
-            noPrice: 1 - newPrice,
-            volume: market.volume + parsedAmount,
-            yesVolume: market.yesVolume + (actionRef === "buy_yes" ? parsedAmount : 0),
-            noVolume: market.noVolume + (actionRef === "buy_no" ? parsedAmount : 0),
-            liquidity: market.liquidity + (actionRef === "add_liquidity" ? parsedAmount : 0),
-          };
-  
-          onTradeSuccess(patchData);
-          setLoading(false);
-        }, 2000); // Realistic 2 second blockchain latency
-        return;
-      }
-
-      // ────────────────────────────────────────────────────────
-      // REAL BLOCKCHAIN TRANSACTION (For users with actual Freighter)
-      // ────────────────────────────────────────────────────────
-      const finalContractAddress = market.contractAddress || "CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC";
-
       const { txHash, message } = await submitTrade({
-        contractAddress: finalContractAddress,
+        contractAddress: market.contractAddress,
         action: actionRef,
         amount: parsedAmount,
         walletAddress: walletAddress!,

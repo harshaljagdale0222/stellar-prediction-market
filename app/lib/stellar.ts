@@ -64,16 +64,14 @@ export async function connectWallet(type: WalletType = "freighter"): Promise<str
     try {
       const available = await isFreighterAvailable();
       if (!available) {
-        // Fallback to a completely realistic-looking public address for the demo video
-        return "GCHO2O2LFLMNDRBE2MFNGE73H5UK7U2AUK3R2Z7X5M22TCHQ72JMTXZX";
+        throw new Error("Freighter wallet not found. Please ensure it is installed and enabled in your browser.");
       }
       const res = await requestAccess();
       if (res.error) throw new Error(res.error);
       if (!res.address) throw new Error("Could not retrieve wallet address.");
       return res.address;
     } catch (e: any) {
-      // Seamlessly fallback if Freighter rejects or fails to open
-      return "GCHO2O2LFLMNDRBE2MFNGE73H5UK7U2AUK3R2Z7X5M22TCHQ72JMTXZX";
+      throw new Error(e.message || "Freighter connection rejected or failed.");
     }
   } else if (type === "albedo") {
     const res = await albedo.publicKey({
