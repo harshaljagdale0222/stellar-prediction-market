@@ -5,6 +5,8 @@ const redisUrl = process.env.STORAGE_REST_API_URL || process.env.KV_REST_API_URL
 const redisToken = process.env.STORAGE_REST_API_TOKEN || process.env.KV_REST_API_TOKEN;
 
 // Emergency Fallback: If Redis is not configured, don't crash, just use memory/seed.
+export const dynamic = "force-dynamic";
+export const revalidate = 0; // Disable caching to ensure real-time analytics for the final demo
 const redis = (redisUrl && redisToken) ? new Redis({ url: redisUrl, token: redisToken }) : null;
 
 
@@ -244,8 +246,8 @@ export async function getAllMarkets(): Promise<MarketMeta[]> {
       return SEED_MARKETS;
     }
     const markets = await redis.get<MarketMeta[]>("markets");
-    // Force re-seed if database is empty, outdated, or contains markets with missing addresses
-    const needsReseed = !markets || markets.length < 3 || markets.some(m => !m.contractAddress || m.contractAddress.length < 10);
+    // Force re-seed if database is empty, outdated, or contains markets with missing addresses/liquidity
+    const needsReseed = !markets || markets.length < 3 || markets.some(m => !m.contractAddress || m.contractAddress.length < 10 || m.liquidity < 10);
     
     if (needsReseed) {
       console.log("Database cleanup: Re-seeding markets with correct contract IDs.");
