@@ -121,6 +121,7 @@ function TradingPanel({
   onOpenWallet: () => void;
   onTradeSuccess: (update: Partial<MarketMeta>) => void;
 }) {
+  const router = useRouter();
   const [tab, setTab] = useState<
     "buy_yes" | "buy_no" | "sell_yes" | "add_liquidity"
   >("buy_yes");
@@ -204,14 +205,16 @@ function TradingPanel({
       onToast(message, "success");
 
       // Visually update the market mechanics as per user request
-      const newPrice = preview.newYesPrice ?? market.yesPrice;
+      // Final safety logic: Prevent NaN from ever entering the persistent database.
+      const rawPrice = preview.newYesPrice ?? market.yesPrice;
+      const newPrice = (!isNaN(rawPrice) && isFinite(rawPrice)) ? rawPrice : 0.5;
       const patchData: Partial<MarketMeta> = {
         yesPrice: newPrice,
         noPrice: 1 - newPrice,
-        volume: market.volume + parsedAmount,
-        yesVolume: market.yesVolume + (actionRef === "buy_yes" ? parsedAmount : 0),
-        noVolume: market.noVolume + (actionRef === "buy_no" ? parsedAmount : 0),
-        liquidity: market.liquidity + (actionRef === "add_liquidity" ? parsedAmount : 0),
+        volume: (market.volume || 0) + (parsedAmount || 0),
+        yesVolume: (market.yesVolume || 0) + (actionRef === "buy_yes" ? (parsedAmount || 0) : 0),
+        noVolume: (market.noVolume || 0) + (actionRef === "buy_no" ? (parsedAmount || 0) : 0),
+        liquidity: (market.liquidity || 0) + (actionRef === "add_liquidity" ? (parsedAmount || 0) : 0),
       };
 
       // Background patch API
@@ -223,6 +226,9 @@ function TradingPanel({
 
       // Instantly update UI prop
       onTradeSuccess(patchData);
+      
+      // Force Global Refresh for absolute data consistency
+      setTimeout(() => router.refresh(), 500);
 
     } catch (e: any) {
       onToast(e.message || "Transaction failed or was rejected.", "warn");
@@ -371,7 +377,7 @@ function TradingPanel({
 
 // ── Probability Gauge ──────────────────────────────────────────────────────────
 function ProbabilityGauge({ yesPrice }: { yesPrice: number }) {
-  const safeYesPrice = yesPrice ?? 0.5;
+  const safeYesPrice = (yesPrice && isFinite(yesPrice)) ? yesPrice : 0.5;
   const yes = Math.round(safeYesPrice * 100);
   const no = 100 - yes;
   return (
@@ -381,24 +387,24 @@ function ProbabilityGauge({ yesPrice }: { yesPrice: number }) {
       </h2>
       <div className="flex gap-4 mb-4">
         <div className="flex-1 glass rounded-xl p-4 border border-cyan-500/20 glow-yes text-center">
-          <div className="text-3xl font-extrabold text-cyan-400">{yes}%</div>
+          <div className="text-3xl font-extrabold text-cyan-400">{(isNaN(yes) ? 50 : yes)}%</div>
           <div className="text-xs text-slate-500 mt-1">YES probability</div>
           <div className="text-xs text-cyan-400 font-mono mt-1">
-            ${(safeYesPrice).toFixed(3)}
+            ${(safeYesPrice && !isNaN(safeYesPrice)) ? safeYesPrice.toFixed(3) : "0.500"}
           </div>
         </div>
         <div className="flex-1 glass rounded-xl p-4 border border-pink-500/20 glow-no text-center">
-          <div className="text-3xl font-extrabold text-pink-400">{no}%</div>
+          <div className="text-3xl font-extrabold text-pink-400">{(isNaN(no) ? 50 : no)}%</div>
           <div className="text-xs text-slate-500 mt-1">NO probability</div>
           <div className="text-xs text-pink-400 font-mono mt-1">
-            ${(1 - safeYesPrice).toFixed(3)}
+            ${(safeYesPrice && !isNaN(safeYesPrice)) ? (1 - safeYesPrice).toFixed(3) : "0.500"}
           </div>
         </div>
       </div>
       <div className="h-3 rounded-full bg-white/5 overflow-hidden">
         <div
           className="h-full rounded-full bg-gradient-to-r from-cyan-500 to-cyan-300 transition-all duration-700"
-          style={{ width: `${yes}%` }}
+          style={{ width: `${(isNaN(yes) ? 50 : yes)}%` }}
         />
       </div>
       <div className="flex justify-between text-[10px] text-slate-600 mt-1">
@@ -623,10 +629,8 @@ export default function MarketPage() {
                   </div>
                   <div className="font-mono text-violet-400 text-xs">
                     {(
-                      (market.liquidity ?? 0) *
-                      (1 - (market.yesPrice ?? 0.5)) *
-                      (market.liquidity ?? 0) *
-                      (market.yesPrice ?? 0.5)
+                      (market.liquidity ?? 0) * (1 - (market.yesPrice ?? 0.5)) *
+                      (market.liquidity ?? 0) * (market.yesPrice ?? 0.5)
                     ).toFixed(0)}
                   </div>
                 </div>
