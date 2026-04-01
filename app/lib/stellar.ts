@@ -172,13 +172,15 @@ export function calcBuyNo(
   return { noOut: totalNoOut, priceImpact, newYesPrice };
 }
 
-export function formatCurrency(n: number): string {
+export function formatCurrency(n: number | undefined | null): string {
+  if (n === undefined || n === null) return "$0.00";
   if (n >= 1_000_000) return `$${(n / 1_000_000).toFixed(2)}M`;
   if (n >= 1_000) return `$${(n / 1_000).toFixed(1)}K`;
   return `$${n.toFixed(2)}`;
 }
 
-export function formatProbability(p: number): string {
+export function formatProbability(p: number | undefined | null): string {
+  if (p === undefined || p === null) return "0.0%";
   return `${(p * 100).toFixed(1)}%`;
 }
 

@@ -366,7 +366,8 @@ function TradingPanel({
 
 // ── Probability Gauge ──────────────────────────────────────────────────────────
 function ProbabilityGauge({ yesPrice }: { yesPrice: number }) {
-  const yes = Math.round(yesPrice * 100);
+  const safeYesPrice = yesPrice ?? 0.5;
+  const yes = Math.round(safeYesPrice * 100);
   const no = 100 - yes;
   return (
     <div className="glass rounded-2xl p-5">
@@ -378,14 +379,14 @@ function ProbabilityGauge({ yesPrice }: { yesPrice: number }) {
           <div className="text-3xl font-extrabold text-cyan-400">{yes}%</div>
           <div className="text-xs text-slate-500 mt-1">YES probability</div>
           <div className="text-xs text-cyan-400 font-mono mt-1">
-            ${yesPrice.toFixed(3)}
+            ${(safeYesPrice).toFixed(3)}
           </div>
         </div>
         <div className="flex-1 glass rounded-xl p-4 border border-pink-500/20 glow-no text-center">
           <div className="text-3xl font-extrabold text-pink-400">{no}%</div>
           <div className="text-xs text-slate-500 mt-1">NO probability</div>
           <div className="text-xs text-pink-400 font-mono mt-1">
-            ${(1 - yesPrice).toFixed(3)}
+            ${(1 - safeYesPrice).toFixed(3)}
           </div>
         </div>
       </div>
@@ -602,13 +603,13 @@ export default function MarketPage() {
                     YES Reserve
                   </div>
                   <div className="font-mono text-cyan-400">
-                    {(market.liquidity * (1 - market.yesPrice)).toFixed(0)} USDC
+                    {((market.liquidity ?? 0) * (1 - (market.yesPrice ?? 0.5))).toFixed(0)} USDC
                   </div>
                 </div>
                 <div className="glass rounded-xl p-3">
                   <div className="text-xs text-slate-500 mb-1">NO Reserve</div>
                   <div className="font-mono text-pink-400">
-                    {(market.liquidity * market.yesPrice).toFixed(0)} USDC
+                    {((market.liquidity ?? 0) * (market.yesPrice ?? 0.5)).toFixed(0)} USDC
                   </div>
                 </div>
                 <div className="glass rounded-xl p-3">
@@ -617,10 +618,10 @@ export default function MarketPage() {
                   </div>
                   <div className="font-mono text-violet-400 text-xs">
                     {(
-                      market.liquidity *
-                      (1 - market.yesPrice) *
-                      market.liquidity *
-                      market.yesPrice
+                      (market.liquidity ?? 0) *
+                      (1 - (market.yesPrice ?? 0.5)) *
+                      (market.liquidity ?? 0) *
+                      (market.yesPrice ?? 0.5)
                     ).toFixed(0)}
                   </div>
                 </div>
