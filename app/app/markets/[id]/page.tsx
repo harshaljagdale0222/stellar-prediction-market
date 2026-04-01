@@ -172,6 +172,10 @@ function TradingPanel({
       onOpenWallet();
       return;
     }
+    if (!market.contractAddress) {
+      onToast("This market is not fully deployed yet (Missing Contract Address).", "warn");
+      return;
+    }
     if (!parsedAmount) {
       onToast("Please enter an amount.", "warn");
       return;
