@@ -24,13 +24,13 @@ Ensure your project meets all requirements before submitting:
 ---
 
 ## 🔗 Important Links
-*   **Live Demo UI**: [stellar-prediction-market-9rr6.vercel.app](https://stellar-prediction-market-9rr6.vercel.app/)
+*   **Live Demo UI**: [stellar-prediction-market-1nwv.vercel.app](https://stellar-prediction-market-1nwv.vercel.app/)
 *   **Metrics Dashboard**: [Live System Metrics](/stats)
 *   **Monitoring Dashboard**: [Vercel Analytics Dashboard](https://vercel.com/harshals-projects/stellar-prediction-market-level-5/analytics)
 *   **Security Checklist**: [SECURITY.md](./SECURITY.md)
 *   **Community Contribution**: [Twitter / X Post](https://x.com/Harshal0296/status/2039350436730438066)
 *   **Architecture Document**: [ARCHITECTURE.md](./ARCHITECTURE.md)
-*   **MVP Demo Video**: [Watch Video on YouTube](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
+*   **MVP Demo Video**: [Watch Demo on Loom](https://www.loom.com/share/df5ae1e7e17d44e281d2e3377c3bb16f)
 *   **Deployed Smart Contract IDs (Testnet)**:
     *   **Market Factory**: `CB5ZKRVTZCSERHLYMLXZ6EWSVJ3DY7J6JVRMUKPNYDS2VGODLCLE4V37`
     *   **Main Market ID**: `CDLEEXCKX2O2X3CYBWDAPO5BJWNWP5H45AL3AXJFKR46D6WGDEPBNUZO`
