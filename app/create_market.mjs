@@ -22,7 +22,7 @@ async function createMarket() {
 
     // 2. Factory Address & Token address (Testnet XLM)
     const factoryId = 'CB5ZKRVTZCSERHLYMLXZ6EWSVJ3DY7J6JVRMUKPNYDS2VGODLCLE4V37';
-    const collateralToken = 'CDLZFC3SYXG7L6CJCXWSH67TGKDY7XREO6TBOF3Y7TSRKCP6AKCPSTCD';
+    const collateralToken = 'CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC';
     const oracle = deployer.publicKey();
 
     // 3. Invoke Factory.create_market

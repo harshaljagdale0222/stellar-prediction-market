@@ -27,6 +27,17 @@ export function WalletProvider({ children }: { children: ReactNode }) {
     setLoading(false);
   }, []);
 
+  // Auto-register on address change (handles account switching)
+  useEffect(() => {
+    if (address) {
+      fetch("/api/users", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ address }),
+      }).catch(err => console.error("Failed to log account switch:", err));
+    }
+  }, [address]);
+
   const connect = async (type: WalletType) => {
     setLoading(true);
     setError(null);
@@ -35,13 +46,6 @@ export function WalletProvider({ children }: { children: ReactNode }) {
       if (addr) {
         setAddress(addr);
         setWalletType(type);
-        
-        // Register user in DB for analytics
-        fetch("/api/users", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ address: addr }),
-        }).catch(err => console.error("Failed to log user connection:", err));
       }
     } catch (err: any) {
       setError(err.message);

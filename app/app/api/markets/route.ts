@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getAllMarkets, createMarket } from "@/lib/db";
+import { getAllMarkets, createMarket } from "../../../lib/db";
 
 export const revalidate = 30; // Cache for 30 seconds
 

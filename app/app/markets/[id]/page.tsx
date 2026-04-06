@@ -80,9 +80,19 @@ function Navbar({
           </span>
         </Link>
         <div className="flex items-center gap-3">
-          <div className="flex items-center gap-1.5 text-xs text-slate-500">
+          <div className="flex items-center gap-2 text-xs text-slate-500">
             <div className="pulse-dot" />
             <span>Testnet</span>
+            {address && (
+              <a 
+                href={`https://friendbot.stellar.org?addr=${address}`}
+                target="_blank"
+                rel="noreferrer"
+                className="ml-2 px-2 py-0.5 rounded border border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10 transition-colors"
+              >
+                + Get XLM
+              </a>
+            )}
           </div>
           {address ? (
             <button
@@ -178,7 +188,7 @@ function TradingPanel({
       return;
     }
     // Real-time repair for missing contract IDs during the trade flow (ensures users can ALWAYS trade)
-    const finalContractAddress = market.contractAddress || "CAMFDESMH77PSPTJQ5DAEFTFTCTH6SG2VR3C4WD4FSGRIXFLLE5E3QLG";
+    const finalContractAddress = market.contractAddress || "CDLEEXCKX2O2X3CYBWDAPO5BJWNWP5H45AL3AXJFKR46D6WGDEPBNUZO";
 
     setLoading(true);
 
@@ -245,8 +255,13 @@ function TradingPanel({
   ] as const;
 
   return (
-    <div className="glass rounded-2xl p-5">
-      <h2 className="text-sm font-semibold text-slate-400 mb-4">TRADE</h2>
+    <div className="relative glass rounded-3xl p-6 overflow-hidden shadow-2xl border border-white/10 bg-white/5 backdrop-blur-3xl hover:border-violet-500/30 transition-all duration-300">
+      <div className="absolute top-0 right-0 w-32 h-32 bg-violet-500/10 rounded-full blur-[50px] pointer-events-none -mr-16 -mt-16"></div>
+      <div className="absolute bottom-0 left-0 w-32 h-32 bg-cyan-500/10 rounded-full blur-[50px] pointer-events-none -ml-16 -mb-16"></div>
+      <div className="relative z-10">
+      <h2 className="text-xs font-bold text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-cyan-400 mb-4 tracking-widest uppercase">
+        Execute Trade
+      </h2>
 
       <div className="flex gap-1 glass rounded-xl p-1 mb-4">
         {tabs.map((t) => (
@@ -269,7 +284,7 @@ function TradingPanel({
 
       <div className="mb-4">
         <label className="text-xs text-slate-500 mb-1.5 block">
-          {tab === "sell_yes" ? "Collateral out (USDC)" : "Amount (USDC)"}
+          {tab === "sell_yes" ? "Collateral out (XLM)" : "Amount (XLM)"}
         </label>
         <div className="flex items-center glass rounded-xl border border-white/10 focus-within:border-violet-500/50 transition-colors">
           <input
@@ -282,7 +297,7 @@ function TradingPanel({
             placeholder="0.00"
             className="flex-1 bg-transparent text-white px-4 py-3 outline-none text-sm font-mono"
           />
-          <span className="text-slate-500 text-xs pr-4">USDC</span>
+          <span className="text-slate-500 text-xs pr-4">XLM</span>
         </div>
         <div className="flex justify-end mt-1 gap-2">
           {["25", "50", "100"].map((v) => (
@@ -312,7 +327,7 @@ function TradingPanel({
           <div className="flex justify-between text-xs mt-1">
             <span className="text-slate-500">Fee (1%)</span>
             <span className="text-slate-400">
-              {(parsedAmount * 0.01).toFixed(2)} USDC
+              {(parsedAmount * 0.01).toFixed(2)} XLM
             </span>
           </div>
         </div>
@@ -345,15 +360,15 @@ function TradingPanel({
         <button
           onClick={handleSubmit}
           disabled={loading || !parsedAmount}
-          className={`w-full py-3 rounded-xl font-semibold text-sm transition-all ${
+          className={`w-full py-4 rounded-2xl font-bold text-base transition-all transform hover:scale-[1.02] active:scale-95 shadow-xl ${
             tab === "buy_yes"
-              ? "bg-gradient-to-r from-cyan-600 to-cyan-500 hover:from-cyan-500 hover:to-cyan-400 glow-yes"
+              ? "bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 glow-yes shadow-cyan-500/25 text-white border border-cyan-400/50"
               : tab === "buy_no"
-              ? "bg-gradient-to-r from-pink-600 to-pink-500 hover:from-pink-500 hover:to-pink-400 glow-no"
+              ? "bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-400 hover:to-rose-400 glow-no shadow-pink-500/25 text-white border border-pink-400/50"
               : tab === "add_liquidity"
-              ? "bg-gradient-to-r from-violet-600 to-violet-500 glow-purple"
-              : "bg-white/10 hover:bg-white/15"
-          } text-white disabled:opacity-50 disabled:cursor-not-allowed`}
+              ? "bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 glow-purple shadow-violet-500/25 text-white border border-violet-400/50"
+              : "bg-white/10 hover:bg-white/20 border border-white/10 text-white"
+          } disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none`}
         >
           {loading ? (
             <span className="flex items-center justify-center gap-2">
@@ -371,6 +386,7 @@ function TradingPanel({
           )}
         </button>
       )}
+      </div>
     </div>
   );
 }
@@ -381,9 +397,12 @@ function ProbabilityGauge({ yesPrice }: { yesPrice: number }) {
   const yes = Math.round(safeYesPrice * 100);
   const no = 100 - yes;
   return (
-    <div className="glass rounded-2xl p-5">
-      <h2 className="text-sm font-semibold text-slate-400 mb-4">
-        CURRENT ODDS
+    <div className="relative glass rounded-3xl p-6 mb-6 overflow-hidden shadow-2xl border border-white/10 bg-white/5 backdrop-blur-3xl transition-all duration-300 hover:border-white/20">
+      <div className="absolute top-0 left-0 w-40 h-40 bg-pink-500/10 rounded-full blur-[60px] pointer-events-none -ml-20 -mt-20"></div>
+      <div className="absolute bottom-0 right-0 w-40 h-40 bg-cyan-500/10 rounded-full blur-[60px] pointer-events-none -mr-20 -mb-20"></div>
+      <div className="relative z-10">
+      <h2 className="text-xs font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-orange-400 mb-6 tracking-widest uppercase">
+        Live Odds & Probability
       </h2>
       <div className="flex gap-4 mb-4">
         <div className="flex-1 glass rounded-xl p-4 border border-cyan-500/20 glow-yes text-center">
@@ -407,9 +426,10 @@ function ProbabilityGauge({ yesPrice }: { yesPrice: number }) {
           style={{ width: `${(isNaN(yes) ? 50 : yes)}%` }}
         />
       </div>
-      <div className="flex justify-between text-[10px] text-slate-600 mt-1">
+      <div className="flex justify-between text-[10px] font-bold text-slate-500 mt-3 uppercase tracking-widest">
         <span>NO ←</span>
         <span>→ YES</span>
+      </div>
       </div>
     </div>
   );
@@ -449,9 +469,21 @@ export default function MarketPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen grid-bg">
-        <Navbar address={walletAddress} onOpenModal={() => setShowWalletModal(true)} />
-        <main className="max-w-7xl mx-auto px-6 pt-24 pb-16">
+      <div className="min-h-screen relative overflow-hidden bg-[#0a0a0a]">
+        {/* Photographic Background Elements */}
+        <div className="fixed inset-0 pointer-events-none z-0">
+          <div 
+            className="absolute inset-0 opacity-40 bg-cover bg-center bg-fixed" 
+            style={{ backgroundImage: "url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop')" }}
+          />
+          <div className="absolute inset-0 bg-[#0a0a0a]/70 backdrop-blur-xl" />
+          <div className="absolute top-[-20%] left-[-10%] w-[60vw] h-[60vw] bg-violet-600/30 rounded-full blur-[140px] animate-[pulse_6s_ease-in-out_infinite] z-0" />
+          <div className="absolute bottom-[-20%] right-[-10%] w-[60vw] h-[60vw] bg-cyan-600/30 rounded-full blur-[140px] animate-[pulse_8s_ease-in-out_infinite] z-0" />
+        </div>
+        <div className="relative z-50">
+          <Navbar address={walletAddress} onOpenModal={() => setShowWalletModal(true)} />
+        </div>
+        <main className="max-w-7xl mx-auto px-6 pt-24 pb-16 relative z-10">
           {/* Skeleton Breadcrumb */}
           <div className="flex items-center gap-2 mb-6">
             <div className="h-4 w-16 bg-white/5 rounded-full animate-pulse" />
@@ -494,11 +526,21 @@ export default function MarketPage() {
 
   if (!market) {
     return (
-      <div className="min-h-screen grid-bg flex flex-col items-center justify-center gap-4">
-        <p className="text-slate-400">Market not found.</p>
+      <div className="min-h-screen relative overflow-hidden flex flex-col items-center justify-center gap-4 bg-[#0a0a0a]">
+        {/* Photographic Background Elements */}
+        <div className="fixed inset-0 pointer-events-none z-0">
+          <div 
+            className="absolute inset-0 opacity-40 bg-cover bg-center bg-fixed" 
+            style={{ backgroundImage: "url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop')" }}
+          />
+          <div className="absolute inset-0 bg-[#0a0a0a]/70 backdrop-blur-xl" />
+          <div className="absolute top-[-20%] left-[-10%] w-[60vw] h-[60vw] bg-violet-600/30 rounded-full blur-[140px] animate-[pulse_6s_ease-in-out_infinite] z-0" />
+          <div className="absolute bottom-[-20%] right-[-10%] w-[60vw] h-[60vw] bg-cyan-600/30 rounded-full blur-[140px] animate-[pulse_8s_ease-in-out_infinite] z-0" />
+        </div>
+        <p className="text-slate-200 text-lg font-bold relative z-10 bg-black/50 px-6 py-2 rounded-full border border-white/10 backdrop-blur-md">Market not found.</p>
         <button
           onClick={() => router.push("/")}
-          className="px-4 py-2 glass rounded-xl text-sm text-violet-300"
+          className="px-4 py-2 glass rounded-xl text-sm text-violet-300 relative z-10"
         >
           ← Back to markets
         </button>
@@ -514,11 +556,26 @@ export default function MarketPage() {
   );
 
   return (
-    <div className="min-h-screen grid-bg">
-      <Navbar
-        address={walletAddress}
-        onOpenModal={() => setShowWalletModal(true)}
-      />
+    <div className="min-h-screen relative overflow-hidden bg-[#0a0a0a]">
+      {/* Photographic Animated Gradient Background */}
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <div 
+          className="absolute inset-0 opacity-50 bg-cover bg-center bg-no-repeat bg-fixed" 
+          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop')" }}
+        />
+        <div className="absolute inset-0 bg-[#0a0a0a]/60 backdrop-blur-[30px]" />
+        
+        <div className="absolute top-[-20%] left-[-10%] w-[70vw] h-[70vw] bg-violet-600/40 rounded-full blur-[150px] animate-[pulse_8s_ease-in-out_infinite]" />
+        <div className="absolute bottom-[-20%] right-[-10%] w-[70vw] h-[70vw] bg-cyan-600/40 rounded-full blur-[150px] animate-[pulse_10s_ease-in-out_infinite_reverse]" />
+        <div className="absolute top-[30%] left-[30%] w-[40vw] h-[40vw] bg-pink-600/30 rounded-full blur-[120px] animate-[pulse_12s_ease-in-out_infinite]" />
+      </div>
+
+      <div className="relative z-50">
+        <Navbar
+          address={walletAddress}
+          onOpenModal={() => setShowWalletModal(true)}
+        />
+      </div>
 
       {toast && (
         <Toast
@@ -534,7 +591,7 @@ export default function MarketPage() {
         />
       )}
 
-      <main className="max-w-7xl mx-auto px-6 pt-24 pb-16">
+      <main className="max-w-7xl mx-auto px-6 pt-24 pb-16 relative z-10">
         {/* Breadcrumb */}
         <div className="flex items-center gap-2 text-sm text-slate-500 mb-6">
           <Link href="/" className="hover:text-violet-400 transition-colors">
@@ -547,53 +604,56 @@ export default function MarketPage() {
         </div>
 
         {/* Header */}
-        <div className="glass rounded-2xl p-6 mb-6">
-          <div className="flex items-start gap-4">
-            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-violet-600/20 to-cyan-600/20 border border-white/10 flex items-center justify-center text-3xl shrink-0">
+        <div className="relative glass rounded-3xl p-8 mb-8 overflow-hidden shadow-2xl border border-white/10 bg-white/5 backdrop-blur-2xl transition-all duration-500 hover:shadow-violet-500/10 hover:border-white/20">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-500/10 rounded-full blur-[80px] pointer-events-none -mr-32 -mt-32"></div>
+          <div className="absolute bottom-0 left-0 w-64 h-64 bg-violet-500/10 rounded-full blur-[80px] pointer-events-none -ml-32 -mb-32"></div>
+          
+          <div className="relative z-10 flex flex-col md:flex-row items-start gap-6">
+            <div className="w-24 h-24 rounded-3xl bg-gradient-to-br from-violet-600/40 to-cyan-600/40 border border-white/20 flex items-center justify-center text-5xl shrink-0 shadow-lg shadow-violet-500/20 transform transition-transform hover:scale-105 hover:rotate-3 duration-300">
               {market.emoji}
             </div>
             <div className="flex-1 min-w-0">
-              <div className="flex flex-wrap items-center gap-2 mb-2">
-                <span className="text-xs px-2 py-0.5 rounded-full bg-violet-500/10 border border-violet-500/30 text-violet-300">
+              <div className="flex flex-wrap items-center gap-3 mb-3">
+                <span className="text-xs px-3 py-1 rounded-full bg-violet-500/20 border border-violet-500/40 text-violet-200 font-semibold shadow-sm">
                   {market.category}
                 </span>
                 {market.resolved ? (
-                  <span className="text-xs px-2 py-0.5 rounded-full bg-green-500/10 border border-green-500/30 text-green-300">
+                  <span className="text-xs px-3 py-1 rounded-full bg-green-500/20 border border-green-500/40 text-green-200 font-semibold shadow-sm">
                     Resolved: {market.outcome}
                   </span>
                 ) : (
-                  <span className="text-xs text-slate-500">
-                    {daysLeft} days remaining
+                  <span className="text-xs px-3 py-1 rounded-full bg-white/10 border border-white/20 text-slate-300 font-medium">
+                    ⏳ {daysLeft} days remaining
                   </span>
                 )}
               </div>
-              <h1 className="text-xl md:text-2xl font-bold text-white mb-2">
+              <h1 className="text-2xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-slate-400 mb-3 tracking-tight">
                 {market.title}
               </h1>
-              <p className="text-sm text-slate-400">{market.description}</p>
+              <p className="text-base text-slate-300 leading-relaxed max-w-3xl">{market.description}</p>
             </div>
           </div>
 
-          <div className="grid grid-cols-3 gap-4 mt-5 pt-5 border-t border-white/5">
-            <div>
-              <div className="text-xs text-slate-500 mb-1">Volume</div>
-              <div className="text-lg font-bold text-white">
+          <div className="relative z-10 grid grid-cols-3 gap-6 mt-8 pt-6 border-t border-white/10">
+            <div className="glass rounded-2xl p-4 bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
+              <div className="text-xs text-slate-400 mb-1 font-medium uppercase tracking-wider">Total Volume</div>
+              <div className="text-xl md:text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">
                 {formatCurrency(market.volume)}
               </div>
             </div>
-            <div>
-              <div className="text-xs text-slate-500 mb-1">Liquidity</div>
-              <div className="text-lg font-bold text-white">
+            <div className="glass rounded-2xl p-4 bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
+              <div className="text-xs text-slate-400 mb-1 font-medium uppercase tracking-wider">Liquidity Pool</div>
+              <div className="text-xl md:text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-purple-400">
                 {formatCurrency(market.liquidity)}
               </div>
             </div>
-            <div>
-              <div className="text-xs text-slate-500 mb-1">Contract</div>
+            <div className="glass rounded-2xl p-4 bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
+              <div className="text-xs text-slate-400 mb-1 font-medium uppercase tracking-wider">Smart Contract</div>
               <div
-                className="text-xs font-mono text-violet-300 truncate"
+                className="text-sm md:text-base font-mono text-pink-300 truncate font-semibold"
                 title={market.contractAddress || ""}
               >
-                {market.contractAddress ? `${market.contractAddress.slice(0, 12)}…` : "Not deployed"}
+                {market.contractAddress ? `${market.contractAddress.slice(0, 8)}…` : "Pending"}
               </div>
             </div>
           </div>
@@ -604,48 +664,51 @@ export default function MarketPage() {
           <div className="lg:col-span-2 space-y-6">
             <ProbabilityGauge yesPrice={market.yesPrice} />
 
-            <div className="glass rounded-2xl p-5">
-              <h2 className="text-sm font-semibold text-slate-400 mb-4">
-                AMM MECHANICS
+            <div className="relative glass rounded-3xl p-8 overflow-hidden shadow-2xl border border-white/10 bg-white/5 backdrop-blur-3xl transition-all duration-300 hover:border-white/20">
+              <div className="absolute bottom-0 right-0 w-40 h-40 bg-purple-500/10 rounded-full blur-[60px] pointer-events-none -mr-20 -mb-20"></div>
+              
+              <div className="relative z-10">
+              <h2 className="text-xs font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-indigo-400 mb-6 tracking-widest uppercase">
+                Liquidity Pool Mechanics
               </h2>
               <div className="grid grid-cols-2 gap-4 text-sm">
-                <div className="glass rounded-xl p-3">
-                  <div className="text-xs text-slate-500 mb-1">
+                <div className="glass rounded-2xl p-4 bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
+                  <div className="text-[10px] font-semibold uppercase tracking-wider text-slate-400 mb-2">
                     YES Reserve
                   </div>
-                  <div className="font-mono text-cyan-400">
-                    {((market.liquidity ?? 0) * (1 - (market.yesPrice ?? 0.5))).toFixed(0)} USDC
+                  <div className="font-mono text-xl font-bold text-cyan-400">
+                    {((market.liquidity ?? 0) * (1 - (market.yesPrice ?? 0.5))).toFixed(0)} <span className="text-sm font-semibold opacity-60">XLM</span>
                   </div>
                 </div>
-                <div className="glass rounded-xl p-3">
-                  <div className="text-xs text-slate-500 mb-1">NO Reserve</div>
-                  <div className="font-mono text-pink-400">
-                    {((market.liquidity ?? 0) * (market.yesPrice ?? 0.5)).toFixed(0)} USDC
+                <div className="glass rounded-2xl p-4 bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
+                  <div className="text-[10px] font-semibold uppercase tracking-wider text-slate-400 mb-2">NO Reserve</div>
+                  <div className="font-mono text-xl font-bold text-pink-400">
+                    {((market.liquidity ?? 0) * (market.yesPrice ?? 0.5)).toFixed(0)} <span className="text-sm font-semibold opacity-60">XLM</span>
                   </div>
                 </div>
-                <div className="glass rounded-xl p-3">
-                  <div className="text-xs text-slate-500 mb-1">
+                <div className="glass rounded-2xl p-4 bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
+                  <div className="text-[10px] font-semibold uppercase tracking-wider text-slate-400 mb-2">
                     k (invariant)
                   </div>
-                  <div className="font-mono text-violet-400 text-xs">
+                  <div className="font-mono font-bold text-violet-400 text-base break-all">
                     {(
                       (market.liquidity ?? 0) * (1 - (market.yesPrice ?? 0.5)) *
                       (market.liquidity ?? 0) * (market.yesPrice ?? 0.5)
                     ).toFixed(0)}
                   </div>
                 </div>
-                <div className="glass rounded-xl p-3">
-                  <div className="text-xs text-slate-500 mb-1">Fee Rate</div>
-                  <div className="font-mono text-amber-400">1%</div>
+                <div className="glass rounded-2xl p-4 bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
+                  <div className="text-[10px] font-semibold uppercase tracking-wider text-slate-400 mb-2">Fee Rate</div>
+                  <div className="font-mono text-xl font-bold text-amber-400">1%</div>
                 </div>
               </div>
 
               {/* Sentiment Tracker Section */}
-              <div className="mt-8 p-5 glass rounded-2xl border border-white/5">
-                <div className="flex justify-between items-end mb-3">
+              <div className="mt-8 p-6 glass rounded-2xl border border-white/10 bg-black/20 shadow-inner">
+                <div className="flex justify-between items-end mb-5">
                   <div>
-                    <h3 className="text-sm font-bold text-white mb-0.5">Sentiment Support</h3>
-                    <p className="text-[10px] text-slate-500 uppercase tracking-widest font-semibold">Total USDC Placed</p>
+                    <h3 className="text-sm font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-400 mb-1">Market Sentiment</h3>
+                    <p className="text-[10px] text-slate-500 uppercase tracking-widest font-semibold">Total Liquidity Volume</p>
                   </div>
                   <div className="text-right">
                     <span className="text-xs font-bold text-slate-300">
@@ -687,6 +750,7 @@ export default function MarketPage() {
                     </div>
                   </div>
                 </div>
+              </div>
               </div>
             </div>
           </div>

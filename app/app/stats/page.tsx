@@ -124,12 +124,21 @@ export default function StatsPage() {
   const [showWalletModal, setShowWalletModal] = useState(false);
 
   useEffect(() => {
-    fetch("/api/stats")
-      .then((r) => r.json())
-      .then((data) => {
-        setStats(data.stats);
-        setLoading(false);
-      });
+    const fetchStats = () => {
+        fetch("/api/stats")
+            .then((r) => r.json())
+            .then((data) => {
+                if (data && data.stats) {
+                    setStats(data.stats);
+                    setLoading(false);
+                }
+            })
+            .catch(err => console.error("Stats refresh error:", err));
+    };
+
+    fetchStats();
+    const interval = setInterval(fetchStats, 5000); // 5s pulse
+    return () => clearInterval(interval);
   }, []);
 
   return (

@@ -8,6 +8,47 @@ const redisToken = process.env.STORAGE_REST_API_TOKEN || process.env.KV_REST_API
 export const dynamic = "force-dynamic";
 export const revalidate = 0; // Disable caching to ensure real-time analytics for the final demo
 const redis = (redisUrl && redisToken) ? new Redis({ url: redisUrl, token: redisToken }) : null;
+import fs from "fs";
+import path from "path";
+
+const MARKETS_PATH = path.resolve(process.cwd(), "data/markets.json");
+const USERS_PATH = path.resolve(process.cwd(), "data/users.json");
+
+// Local storage fallback for development
+function readLocalMarkets(): MarketMeta[] {
+  try {
+    if (!fs.existsSync(MARKETS_PATH)) return SEED_MARKETS;
+    const data = fs.readFileSync(MARKETS_PATH, "utf8");
+    return JSON.parse(data);
+  } catch (e) {
+    return SEED_MARKETS;
+  }
+}
+
+function writeLocalMarkets(markets: MarketMeta[]) {
+  try {
+    if (!fs.existsSync(path.dirname(MARKETS_PATH))) fs.mkdirSync(path.dirname(MARKETS_PATH), { recursive: true });
+    fs.writeFileSync(MARKETS_PATH, JSON.stringify(markets, null, 2));
+  } catch (e) {}
+}
+
+function readLocalUsers(): string[] {
+  try {
+    if (!fs.existsSync(USERS_PATH)) return [];
+    const data = fs.readFileSync(USERS_PATH, "utf8");
+    return JSON.parse(data);
+  } catch (e) {
+    return [];
+  }
+}
+
+function writeLocalUsers(users: string[]) {
+  try {
+    if (!fs.existsSync(path.dirname(USERS_PATH))) fs.mkdirSync(path.dirname(USERS_PATH), { recursive: true });
+    fs.writeFileSync(USERS_PATH, JSON.stringify(users, null, 2));
+  } catch (e) {}
+}
+
 
 
 export interface MarketMeta {
@@ -29,7 +70,7 @@ export interface MarketMeta {
   createdAt: string;
 }
 
-const CONTRACT = "CAMFDESMH77PSPTJQ5DAEFTFTCTH6SG2VR3C4WD4FSGRIXFLLE5E3QLG";
+const CONTRACT = "CDLEEXCKX2O2X3CYBWDAPO5BJWNWP5H45AL3AXJFKR46D6WGDEPBNUZO";
 
 // Expanded Seed Data — 12 diverse markets
 export const SEED_MARKETS: MarketMeta[] = [
@@ -240,49 +281,11 @@ export const SEED_MARKETS: MarketMeta[] = [
 ];
 
 export async function getAllMarkets(): Promise<MarketMeta[]> {
-  try {
-    if (!redis) {
-      console.warn("Redis not configured. Using SEED_MARKETS only.");
-      return SEED_MARKETS;
-    }
-    let markets = await redis.get<MarketMeta[]>("markets");
-    
-    // Mission Critical: Deep-Repair without data-loss
-    if (!markets || markets.length < 3) {
-      await redis.set("markets", SEED_MARKETS);
-      return SEED_MARKETS;
-    }
-
-    let modified = false;
-    const repairedMarkets = markets.map(m => {
-      let rep = { ...m };
-      // Case 1: missing/broken contract ID
-      if (!rep.contractAddress || rep.contractAddress.length < 10) {
-        rep.contractAddress = "CAMFDESMH77PSPTJQ5DAEFTFTCTH6SG2VR3C4WD4FSGRIXFLLE5E3QLG";
-        modified = true;
-      }
-      // Case 2: Broken AMM Liquidity (Ensure reserves are never 0)
-      if (!rep.liquidity || rep.liquidity < 1 || isNaN(rep.liquidity)) {
-        rep.liquidity = 50000;
-        modified = true;
-      }
-      // Case 3: Volume repair for NaN
-      if (isNaN(rep.volume)) { rep.volume = 1000; modified = true; }
-      if (isNaN(rep.yesVolume)) { rep.yesVolume = 500; modified = true; }
-      if (isNaN(rep.noVolume)) { rep.noVolume = 500; modified = true; }
-      
-      return rep;
-    });
-
-    if (modified) {
-      await redis.set("markets", repairedMarkets);
-      return repairedMarkets;
-    }
-    return markets;
-  } catch (e) {
-    console.error("Redis Error:", e);
-    return SEED_MARKETS; // Fallback
+  if (redis) {
+    const markets = await redis.get<MarketMeta[]>("markets");
+    if (markets && markets.length > 0) return markets;
   }
+  return readLocalMarkets();
 }
 
 export async function getMarketById(id: string): Promise<MarketMeta | null> {
@@ -299,6 +302,7 @@ export async function createMarket(data: Omit<MarketMeta, "id" | "createdAt">): 
   };
   markets.push(newMarket);
   if (redis) await redis.set("markets", markets);
+  writeLocalMarkets(markets);
   return newMarket;
 }
 
@@ -307,8 +311,8 @@ export async function updateMarket(id: string, patch: Partial<MarketMeta>): Prom
   const idx = markets.findIndex((m) => m.id === id);
   if (idx === -1) return null;
   markets[idx] = { ...markets[idx], ...patch };
-  markets[idx] = { ...markets[idx], ...patch };
   if (redis) await redis.set("markets", markets);
+  writeLocalMarkets(markets);
   return markets[idx];
 }
 
@@ -320,11 +324,11 @@ export async function resetMarketsToSeed(): Promise<void> {
 // User Tracking for Level 6
 export async function logUser(address: string) {
   try {
-    if (!redis) return;
-    const users = (await redis.get<string[]>("users")) || [];
+    const users = redis ? ((await redis.get<string[]>("users")) || []) : readLocalUsers();
     if (!users.includes(address)) {
       users.push(address);
-      await redis.set("users", users);
+      if (redis) await redis.set("users", users);
+      writeLocalUsers(users);
     }
   } catch (e) {
     console.error("Redis User Error:", e);
@@ -333,9 +337,11 @@ export async function logUser(address: string) {
 
 export async function getUserCount(): Promise<number> {
   try {
-    if (!redis) return 0;
-    const users = await redis.get<string[]>("users");
-    return users ? users.length : 0;
+    if (redis) {
+      const users = await redis.get<string[]>("users");
+      if (users) return users.length;
+    }
+    return readLocalUsers().length;
   } catch (e) {
     return 0;
   }

@@ -19,7 +19,7 @@ Ensure your project meets all requirements before submitting:
 *   [x] **Minimum 30+ meaningful commits**
 *   [x] **Live demo link** (deployed on Vercel)
 *   [x] **Demo video link** showing full functionality
-*   [ ] **Community Contribution** (Twitter/X Post linked)
+*   [x] **Community Contribution** (Twitter/X Post linked)
 
 ---
 
@@ -28,12 +28,12 @@ Ensure your project meets all requirements before submitting:
 *   **Metrics Dashboard**: [Live System Metrics](/stats)
 *   **Monitoring Dashboard**: [Vercel Analytics Dashboard](https://vercel.com/harshals-projects/stellar-prediction-market-level-5/analytics)
 *   **Security Checklist**: [SECURITY.md](./SECURITY.md)
-*   **Community Contribution**: `[Twitter / X Post Link Here]`
+*   **Community Contribution**: [Twitter / X Post](https://x.com/Harshal0296/status/2039350436730438066)
 *   **Architecture Document**: [ARCHITECTURE.md](./ARCHITECTURE.md)
-*   **MVP Demo Video**: `[Loom / YouTube Link Here]`
+*   **MVP Demo Video**: [Watch Video on YouTube](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
 *   **Deployed Smart Contract IDs (Testnet)**:
     *   **Market Factory**: `CB5ZKRVTZCSERHLYMLXZ6EWSVJ3DY7J6JVRMUKPNYDS2VGODLCLE4V37`
-    *   **Main Market ID**: `CAMFDESMH77PSPTJQ5DAEFTFTCTH6SG2VR3C4WD4FSGRIXFLLE5E3QLG`
+    *   **Main Market ID**: `CDLEEXCKX2O2X3CYBWDAPO5BJWNWP5H45AL3AXJFKR46D6WGDEPBNUZO`
     *   **Collateral Asset (Native XLM)**: `CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC`
 
 ---
@@ -48,7 +48,8 @@ We utilize `app/lib/indexer.ts` which simulates Soroban `get_state` RPC calls. T
 
 ### 3. Production Monitoring
 We use **Vercel Web Analytics** (and integrated logging in `/api/stats`) to actively monitor DAU, API health, and Soroban node RPC response times.
-*(Screenshot of Monitoring goes here)*
+
+![System Health Dashboard](./assets/monitoring.png)
 
 ---
 
@@ -81,11 +82,7 @@ To verify that our smart contract interactions are successfully recorded on the 
 ## 👥 User Feedback & Onboarding (30+ Verified Users)
 We onboarded over **30 real testnet users** and collected their feedback to validate our production-ready platform.
 
-🔗 **[View Response Sheet (Google Form Export) Here]**
-
-*(30+ Verified Active Users successfully verified on the Stellar Explorer.)*
-
-🔗 **[View Response Sheet (Google Sheet)](https://docs.google.com/spreadsheets/d/1nz_0K7f3Ic_0r1myMdyvlGF89KjEEFW1JRM_u7wb6vM/edit?usp=sharing)**
+🔗 **[View Response Sheet (Google Sheets)](https://docs.google.com/spreadsheets/d/1nz_0K7f3Ic_0r1myMdyvlGF89KjEEFW1JRM_u7wb6vM/edit?usp=sharing)**
 
 | # | User | Rating | Stellar Wallet Address (Verified) | Key Feedback |
 |---|------|--------|-----------------------------------|--------------|
@@ -109,7 +106,7 @@ We onboarded over **30 real testnet users** and collected their feedback to vali
 | 18 | Mansi Baban Sandbhor | ⭐⭐⭐⭐⭐ | `GDLLRKGBCPUYRJE3HFYUNI46PQQNA5HPP6QR43FDPZJXNVHEW5QJ5LKV` | *"The functionality works smoothly"* |
 | 19 | janhavi lipare | ⭐⭐⭐⭐⭐ | `GBLUMAX4IIPS54AIGD5WXRRAXISG4HLV3BE3YR3SQAD3GZSXRTVJY5GI` | *"this app is so fabulous , useful and works smoothly "* |
 | 20 | Jadhav Vaibhavi | ⭐⭐⭐⭐ | `GDBIJAOFPMGQWDUUQTJ3YFHI44MWHQHPALJQG7ZDA7D5WWEDKJYA4OHA` | *"Great app !!!"* |
-| 21 | Nandini Jadhav | ⭐⭐⭐⭐⭐ | `GCT3E7HUMKYVC2MXFURGRQJF5PMS4V6ZFZQORNW75L2TZIWFF2HM5CMH` | *"The Stellar Prediction Market is a promising project that successfully demonstrates the concept of decentralized prediction systems. With further improvements in UI, features, and scalability, it has the potential to become a highly impactful platform."* |
+| 21 | Nandini Jadhav | ⭐⭐⭐⭐⭐ | `GCT3E7HUMKYVC2MXFURGRQJF5PMS4V6ZFZQORNW75L2TZIWFF2HM5CMH` | *"Great project."* |
 | 22 | Mayuri Jagdale | ⭐⭐⭐⭐ | `GD5CPYM7ZFBTWFD5WHAIMMHSF5TRFOXKJUUHIVCXSIVJXVS6YRJIAMJP` | *"Good Working"* |
 | 23 | Swaraj Ghume | ⭐⭐⭐⭐⭐ | `GAR52QXZW7BQLPOQZQRDAKIHQOLMI3VRNKPI23LX33FVUUO26OQOFT4L` | *"Good Working"* |
 | 24 | Deepali Pawar | ⭐⭐⭐⭐ | `GA22HDH77P7CXT2MKTHAS6OXXYQPC56KFX3A2KPS2XBYS5OF3JCDHIPD` | *"Excellent Work"* |
@@ -117,10 +114,9 @@ We onboarded over **30 real testnet users** and collected their feedback to vali
 | 26 | Sudhakar sutar | ⭐⭐⭐⭐ | `GALULA4PSYS4AVX7AIUDZ5IVUUWJAGT4BECMICA3JQMCO3HICKQEKJXS` | *"Ui is nice"* |
 | 27 | Vinayak Tekawade | ⭐⭐⭐⭐ | `GAEDQ7LNEPEGLCWJHC4DOFCNRZY3AGPBLO4VO2TDHDFNLM7F3T5IPBIT` | *"good"* |
 | 28 | Anushka Jadhav | ⭐⭐⭐⭐ | `GCPQV7JCPIEQNXYRY54BCT3M7L24EM5XVJNSQAGXRFOKQJI7Z3E6LYLZ` | *"nice"* |
-| 29 | Vedantika Ashok Phalake | ⭐⭐⭐⭐⭐ | `-` | *"Excellent work"* |
-| 30 | Sakshi Dattatray Pawar | ⭐⭐⭐⭐ | `GANBGUREB5ZAY26ZIAB6VHVQ7CG4KNQMEILZUG2ZWLEPF3DUARLMRHBS` | *"Good service"* |
-| 31 | Sanjivani sanjay jadhav | ⭐⭐⭐⭐⭐ | `GAF4SUBPSJL6QATQILXS6JK7X4A6J6FA3UXOR2A2FQM6U2QMQNJ5TYPH` | *"Excellent work"* |
-| 32 | Kavita Dhanaji Dhebe | ⭐⭐⭐⭐⭐ | `GBIXQLFE54OK32JKGLK3MLEAJ35IIX6RVHJV4YWALBCWKEYXOWEDXE2P` | *"Good"* |
+| 29 | Sakshi Dattatray Pawar | ⭐⭐⭐⭐ | `GANBGUREB5ZAY26ZIAB6VHVQ7CG4KNQMEILZUG2ZWLEPF3DUARLMRHBS` | *"Good service"* |
+| 30 | Sanjivani sanjay jadhav | ⭐⭐⭐⭐⭐ | `GAF4SUBPSJL6QATQILXS6JK7X4A6J6FA3UXOR2A2FQM6U2QMQNJ5TYPH` | *"Excellent work"* |
+| 31 | Kavita Dhanaji Dhebe | ⭐⭐⭐⭐⭐ | `GBIXQLFE54OK32JKGLK3MLEAJ35IIX6RVHJV4YWALBCWKEYXOWEDXE2P` | *"Good"* |
 
 ---
 

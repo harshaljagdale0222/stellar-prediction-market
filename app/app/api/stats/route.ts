@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
-import { getAllMarkets, getUserCount } from "@/lib/db";
+import { getAllMarkets, getUserCount } from "../../../lib/db";
 
-export const revalidate = 30; // Cache for 30 seconds to reduce Redis round-trips
+export const revalidate = 5; // Reduced to 5s for real-time demonstration
 
 export async function GET() {
   // Run both queries in parallel for faster response
