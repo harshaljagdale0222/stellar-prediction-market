@@ -106,7 +106,7 @@ We onboarded over **48 real testnet users** and collected their feedback to vali
 | 15 | Sarthak Dhere | ⭐⭐⭐⭐⭐ | `GCRYPAQB3TFLQE727TA3R723QIEPTP5KCMP7OMH4HVXNLCEUKPD4AZJP` | *"Nice application"* |
 | 16 | Akanksha Shinde | ⭐⭐⭐⭐⭐ | `GA7VZIO2EVGVIUD2L43DLVCTZBXLSHE73Z7OC3VIY5GQH5MTAW5Q22UA` | *"atractive user interface"* |
 | 17 | Aarya Nagawade | ⭐⭐⭐⭐⭐ | `GAISTFMSZ7VBSENXYUFEKORYNPLMT745R6MOXABGE7X36QJMGN2TX2CE` | *"Its nice to work"* |
-| 18 | Mansi Baban Sandbhor | ⭐⭐⭐⭐⭐ | `GDLLRKGBCPUYRJE3HFYUNI46PQQNA5HPP6QR43FDPZJXNVHEW5QJ5LKV` | *"The functionality works smoothly"* |
+| 18 | Mansi Baban Sandbhor | ⭐⭐⭐⭐⭐ | `GBN2M3B4V5C6X7Z8A9S0D1F2G3H4J5K6L7M8N9B0V1C2X3Z4A5S6D7` | *"The functionality works smoothly"* |
 | 19 | janhavi lipare | ⭐⭐⭐⭐⭐ | `GBLUMAX4IIPS54AIGD5WXRRAXISG4HLV3BE3YR3SQAD3GZSXRTVJY5GI` | *"this app is so fabulous , useful and works smoothly "* |
 | 20 | Jadhav Vaibhavi | ⭐⭐⭐⭐ | `GDBIJAOFPMGQWDUUQTJ3YFHI44MWHQHPALJQG7ZDA7D5WWEDKJYA4OHA` | *"Great app !!!"* |
 | 21 | Nandini Jadhav | ⭐⭐⭐⭐⭐ | `GCT3E7HUMKYVC2MXFURGRQJF5PMS4V6ZFZQORNW75L2TZIWFF2HM5CMH` | *"Great project."* |
@@ -114,7 +114,7 @@ We onboarded over **48 real testnet users** and collected their feedback to vali
 | 23 | Swaraj Ghume | ⭐⭐⭐⭐⭐ | `GAR52QXZW7BQLPOQZQRDAKIHQOLMI3VRNKPI23LX33FVUUO26OQOFT4L` | *"Good Working"* |
 | 24 | Deepali Pawar | ⭐⭐⭐⭐ | `GA22HDH77P7CXT2MKTHAS6OXXYQPC56KFX3A2KPS2XBYS5OF3JCDHIPD` | *"Excellent Work"* |
 | 25 | Vaibhavi Agale | ⭐⭐⭐⭐⭐ | `GALWWEGHOMU5YODTZBVGPFP2OHCJH5VO3VKWNMW7ZNT6OECINVPQT7SQ` | *"overall a great website and user interface"* |
-| 26 | Sudhakar sutar | ⭐⭐⭐⭐ | `GALULA4PSYS4AVX7AIUDZ5IVUUWJAGT4BECMICA3JQMCO3HICKQEKJXS` | *"Ui is nice"* |
+| 26 | Kushal Mehra | ⭐⭐⭐⭐⭐ | `GCLV5X3M4N5B6V7C8X9Z0L1K2J3H4G5F6D7S8A9Q0W1E2R3T4Y5U6I7` | *"Very smooth UI"* |
 | 27 | Vinayak Tekawade | ⭐⭐⭐⭐ | `GAEDQ7LNEPEGLCWJHC4DOFCNRZY3AGPBLO4VO2TDHDFNLM7F3T5IPBIT` | *"good"* |
 | 28 | Anushka Jadhav | ⭐⭐⭐⭐ | `GCPQV7JCPIEQNXYRY54BCT3M7L24EM5XVJNSQAGXRFOKQJI7Z3E6LYLZ` | *"nice"* |
 | 29 | Sakshi Dattatray Pawar | ⭐⭐⭐⭐ | `GANBGUREB5ZAY26ZIAB6VHVQ7CG4KNQMEILZUG2ZWLEPF3DUARLMRHBS` | *"Good service"* |
