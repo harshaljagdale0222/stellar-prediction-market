@@ -184,9 +184,15 @@ function Hero() {
       </div>
 
       <div className="relative z-10">
-        <div className="inline-flex items-center gap-2 glass px-4 py-1.5 rounded-full text-sm text-violet-300 mb-6 border border-violet-500/20">
-          <span className="pulse-dot !w-2 !h-2" />
-          Powered by Stellar Soroban
+        <div className="flex flex-wrap justify-center gap-3 mb-6">
+          <div className="inline-flex items-center gap-2 glass px-4 py-1.5 rounded-full text-sm text-violet-300 border border-violet-500/20">
+            <span className="pulse-dot !w-2 !h-2" />
+            Powered by Stellar Soroban
+          </div>
+          <div className="inline-flex items-center gap-2 glass px-4 py-1.5 rounded-full text-sm text-cyan-300 border border-cyan-500/20 bg-cyan-500/5">
+            <span className="font-bold">April Refresh</span>
+            <span className="text-[10px] bg-cyan-400 text-slate-950 px-1.5 py-0.5 rounded-md font-black">v2.0</span>
+          </div>
         </div>
         <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight mb-4">
           <span className="gradient-text">Predict the Future.</span>

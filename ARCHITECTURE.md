@@ -24,9 +24,22 @@ Our core on-chain logic relies entirely on Stellar's new Soroban smart contract 
 4. **Wallet Signing:** The XDR is passed to the selected Wallet Provider (Freighter/Albedo/xBULL) for user cryptographic signature.
 5. **Network Submission:** Signed XDR is submitted to the Stellar RPC node.
 
+## Level 6 Advanced Components
+
+### 1. Fee Sponsorship (Gasless UX)
+To eliminate onboarding friction, we implement a **Fee Sponsorship** mechanism.
+- **How it works:** When a user initiates a transaction, the backend server (`/api/sponsor`) wraps the Soroban operation within a Fee-Sponsorship envelope.
+- **Benefit:** Users can trade without holding XLM for gas fees, as the platform's sponsor account covers the network costs.
+
+### 2. Data Indexing & Analytics
+Instead of relying on slow direct RPC calls for every UI component, we use a hybrid indexing approach.
+- **Indexer:** A local indexing service (`/lib/indexer.ts`) fetches and caches contract state.
+- **Analytics Dashboard:** A production metrics dashboard (`/admin`) provides real-time visibility into TVL, DAU, and transaction volume.
+
 ## Smart Contract States
 - `Active`: Market is live and accepting trades.
 - `Resolved`: Outcome determined. All trading halted. Winning shares are redeemable exactly at 1 XLM. Losing shares are 0 XLM.
 
 ## Token Economics & Liquidity
 To provide immediate trading possibilities upon market creation, a fixed percentage of Initially deposited XLM is converted into equivalent initial AMM reserves. A small swap fee (1%) is charged on trades to incentivize Liquidity Providers (LPs).
+

@@ -349,9 +349,13 @@ export async function getUserCount(): Promise<number> {
 
 export async function getAllUsers(): Promise<string[]> {
   try {
-    if (!redis) return [];
-    return (await redis.get<string[]>("users")) || [];
+    if (redis) {
+      const users = await redis.get<string[]>("users");
+      if (users && users.length > 0) return users;
+    }
+    return readLocalUsers();
   } catch (e) {
-    return [];
+    return readLocalUsers();
   }
 }
+

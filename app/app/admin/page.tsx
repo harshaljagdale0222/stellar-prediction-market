@@ -102,7 +102,7 @@ export default function AdminDashboard() {
       {/* Users List Table */}
       <div className="max-w-7xl mx-auto bg-white/5 border border-white/10 rounded-2xl overflow-hidden backdrop-blur-sm shadow-2xl">
         <div className="p-6 border-b border-white/10 bg-white/5 flex items-center justify-between">
-          <h2 className="text-xl font-semibold">Verified User Addresses (Black Belt 30+)</h2>
+          <h2 className="text-xl font-semibold">Verified User Addresses (Black Belt 45+)</h2>
           <span className="text-xs font-mono text-gray-500">{users.length} Active Wallets</span>
         </div>
         <div className="overflow-x-auto">
