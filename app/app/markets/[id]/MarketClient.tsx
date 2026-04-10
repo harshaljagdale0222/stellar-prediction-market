@@ -294,6 +294,14 @@ function TradingPanel({
       {txInfo ? (
         <div className="glass rounded-xl p-3 border border-green-500/20 mb-4">
           <p className="text-green-400 text-xs font-semibold">✅ Success</p>
+          <a 
+            href={`https://stellar.expert/explorer/testnet/tx/${txInfo.hash}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[10px] text-violet-400 hover:text-violet-300 underline mt-1 block truncate"
+          >
+            View Hash: {txInfo.hash}
+          </a>
         </div>
       ) : (
         <button
