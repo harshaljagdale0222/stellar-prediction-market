@@ -1,0 +1,1 @@
+C:\Users\Sanjivani\Desktop\Stellar\ level\ 6\target\wasm32-unknown-unknown\release\soroban_prediction_factory.wasm: C:\Users\Sanjivani\Desktop\Stellar\ level\ 6\contracts\factory\src\lib.rs C:\Users\Sanjivani\Desktop\Stellar\ level\ 6\contracts\market\src\lib.rs C:\Users\Sanjivani\Desktop\Stellar\ level\ 6\contracts\token\src\lib.rs
