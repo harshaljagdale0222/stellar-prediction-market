@@ -118,8 +118,7 @@ We onboarded over **48 real testnet users** and collected their feedback to vali
 | 27 | Vinayak Tekawade | ⭐⭐⭐⭐ | `GAEDQ7LNEPEGLCWJHC4DOFCNRZY3AGPBLO4VO2TDHDFNLM7F3T5IPBIT` | *"good"* |
 | 28 | Anushka Jadhav | ⭐⭐⭐⭐ | `GCPQV7JCPIEQNXYRY54BCT3M7L24EM5XVJNSQAGXRFOKQJI7Z3E6LYLZ` | *"nice"* |
 | 29 | Sakshi Dattatray Pawar | ⭐⭐⭐⭐ | `GANBGUREB5ZAY26ZIAB6VHVQ7CG4KNQMEILZUG2ZWLEPF3DUARLMRHBS` | *"Good service"* |
-| 30 | Sanjivani sanjay jadhav | ⭐⭐⭐⭐⭐ | `GAF4SUBPSJL6QATQILXS6JK7X4A6J6FA3UXOR2A2FQM6U2QMQNJ5TYPH` | *"Excellent work"* |
-| 31 | Kavita Dhanaji Dhebe | ⭐⭐⭐⭐⭐ | `GBIXQLFE54OK32JKGLK3MLEAJ35IIX6RVHJV4YWALBCWKEYXOWEDXE2P` | *"Good"* |
+| 30 | Kavita Dhanaji Dhebe | ⭐⭐⭐⭐⭐ | `GBIXQLFE54OK32JKGLK3MLEAJ35IIX6RVHJV4YWALBCWKEYXOWEDXE2P` | *"Good"* |
 | 32 | Aditya Kulkarni | ⭐⭐⭐⭐⭐ | `GCATAASNFHODIKA4VTIEZHONZB3BGZJL42FXHHZ3VS6YKX2PCDIJ3LDY` | *"Great progress in April"* |
 | 33 | Neha Sharma | ⭐⭐⭐⭐ | `GCOFC55GLEIMJN7WO3DL5QKHWIRZHQVEAOUPHH2BGGOIXYWQAFFKYTZZ` | *"Smooth trades"* |
 | 34 | Rahul Deshmukh | ⭐⭐⭐⭐⭐ | `GAO6ZRL5REJK6P6UKXNVGZUPM4F2T5A7R7YIIDW3VZ4I6R2X3V6I7DLR` | *"Best prediction app"* |
