@@ -24,7 +24,7 @@ Ensure your project meets all requirements before submitting:
 ---
 
 ## 🔗 Important Links
-*   **Live Demo UI**: [stellar-prediction-market-1nwv.vercel.app](https://stellar-prediction-market-1nwv.vercel.app/)
+*   **Live Demo UI**: [stellar-prediction-market-egri.vercel.app](https://stellar-prediction-market-egri.vercel.app/)
 *   **Metrics Dashboard**: [Live System Metrics](/stats)
 *   **Monitoring Dashboard**: [Vercel Analytics Dashboard](https://vercel.com/harshals-projects/stellar-prediction-market-level-5/analytics)
 *   **Security Checklist**: [SECURITY.md](./SECURITY.md)
@@ -152,7 +152,41 @@ Based on feedback, we completed one iteration and planned the next phase:
 
 ---
 
+## 🛠️ Technical Implementation Highlights
+
+### 1. Fee Sponsorship (Gasless Transactions)
+We eliminate the barrier to entry by sponsoring transaction fees. This is achieved through a custom backend route that adds a sponsorship footprint to Soroban transactions.
+
+```typescript
+// app/app/api/sponsor/route.ts
+export async function POST(req: Request) {
+  const { xdr } = await req.json();
+  const tx = TransactionBuilder.fromXDR(xdr, Networks.TESTNET);
+  
+  // Platform Sponsor Account
+  const sponsorKey = Keypair.fromSecret(process.env.SPONSOR_SECRET!);
+  tx.sign(sponsorKey);
+  
+  const result = await server.submitTransaction(tx);
+  return Response.json({ hash: result.hash });
+}
+```
+
+### 2. AMM Probability Logic
+The core of our prediction market is a constant product formula that determines outcome probabilities based on liquidity pool reserves.
+
+```rust
+// contracts/market/src/lib.rs
+pub fn calculate_price(yes_pool: i128, no_pool: i128) -> i128 {
+    if yes_pool + no_pool == 0 { return 5000; } // Default 0.50
+    (yes_pool * 10000) / (yes_pool + no_pool)
+}
+```
+
+---
+
 ## 🛠️ Tech Stack
+
 *   **Frontend**: Next.js 14, Tailwind CSS
 *   **Blockchain**: Stellar / Soroban
 *   **Smart Contracts**: Rust
