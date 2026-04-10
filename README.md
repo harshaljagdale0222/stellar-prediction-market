@@ -30,7 +30,7 @@ Ensure your project meets all requirements before submitting:
 *   **Security Checklist**: [SECURITY.md](./SECURITY.md)
 *   **Community Contribution**: [Twitter / X Post](https://x.com/Harshal0296/status/2039350436730438066)
 *   **Architecture Document**: [ARCHITECTURE.md](./ARCHITECTURE.md)
-*   **MVP Demo Video**: [Watch Demo on Loom](https://www.loom.com/share/df5ae1e7e17d44e281d2e3377c3bb16f)
+*   **MVP Demo Video**: [Watch Demo on Loom](https://www.loom.com/share/00776c3260784e1ab6b75099a0e74b02)
 *   **Deployed Smart Contract IDs (Testnet)**:
     *   **Market Factory**: `CB5ZKRVTZCSERHLYMLXZ6EWSVJ3DY7J6JVRMUKPNYDS2VGODLCLE4V37`
     *   **Main Market ID**: `CDLEEXCKX2O2X3CYBWDAPO5BJWNWP5H45AL3AXJFKR46D6WGDEPBNUZO`
