@@ -8,7 +8,7 @@ Welcome to **Stellar Predict**, a production-ready decentralized prediction mark
 
 ## ✅ Black Belt Submission Checklist
 Ensure your project meets all requirements before submitting:
-*   [x] **45+ Verified Active Users** (Verified on Stellar Explorer)
+*   [x] **48+ Verified Active Users** (Verified on Stellar Explorer)
 *   [x] **Advanced Feature: Fee Sponsorship** (Gasless Transactions)
 *   [x] **Live Metrics Dashboard** (DAU, Transactions, Retention)
 *   [x] **Data Indexing Implemented** (Optimized data fetching)
@@ -79,7 +79,7 @@ To verify that our smart contract interactions are successfully recorded on the 
 
 ---
 
-## 👥 User Feedback & Onboarding (45+ Verified Users)
+## 👥 User Feedback & Onboarding (48+ Verified Users)
 We onboarded over **48 real testnet users** and collected their feedback to validate our production-ready platform.
 
 > [!NOTE]
