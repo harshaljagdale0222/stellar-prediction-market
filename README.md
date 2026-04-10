@@ -1,6 +1,6 @@
 # 🚀 Stellar Predict - Level 6 (Black Belt)
 
-![StellarPredict Home Dashboard](./assets/home.png)
+![StellarPredict Home Dashboard-April Refresh](./screenshots/home.png)
 
 Welcome to **Stellar Predict**, a production-ready decentralized prediction market platform built on the **Stellar Soroban** blockchain. This project represents the final milestone (Black Belt), focusing on scaling to real users, advanced smart contract features like **Fee Sponsorship**, and robust analytics.
 
@@ -24,7 +24,7 @@ Ensure your project meets all requirements before submitting:
 ---
 
 ## 🔗 Important Links
-*   **Live Demo UI**: [stellar-prediction-market-egri.vercel.app](https://stellar-prediction-market-egri.vercel.app/)
+*   **Live Demo UI**: [stellar-prediction-market.vercel.app](https://stellar-prediction-market.vercel.app/)
 *   **Metrics Dashboard**: [Live System Metrics](/stats)
 *   **Monitoring Dashboard**: [Vercel Analytics Dashboard](https://vercel.com/harshals-projects/stellar-prediction-market-level-5/analytics)
 *   **Security Checklist**: [SECURITY.md](./SECURITY.md)
@@ -49,7 +49,7 @@ We utilize `app/lib/indexer.ts` which simulates Soroban `get_state` RPC calls. T
 ### 3. Production Monitoring
 We use **Vercel Web Analytics** (and integrated logging in `/api/stats`) to actively monitor DAU, API health, and Soroban node RPC response times.
 
-![System Health Dashboard](./assets/monitoring.png)
+![System Health Dashboard - April Refresh](./screenshots/dashboard.png)
 
 ---
 
@@ -61,7 +61,7 @@ Experience seamless connectivity with:
 *   **xBULL**: Powerful and flexible wallet.
 
 ### 2. Advanced Smart Contracts (Soroban)
-![StellarPredict Trading Interface](./assets/prediction.png)
+![StellarPredict Trading Interface - April Refresh](./screenshots/market_details.png)
 *   **Factory Pattern**: Deploy new prediction markets on-the-fly.
 *   **AMM Simulation**: Fair price discovery based on supply and demand.
 *   **Native XLM Support**: Using the core Stellar asset for maximum accessibility.
