@@ -1,9 +1,0 @@
-{
-  "name": "root",
-  "private": true,
-  "scripts": {
-    "dev": "npm run dev --prefix app",
-    "build": "npm run build --prefix app",
-    "start": "npm run start --prefix app"
-  }
-}
