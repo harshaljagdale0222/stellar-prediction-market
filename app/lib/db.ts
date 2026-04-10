@@ -11,13 +11,8 @@ const redis = (redisUrl && redisToken) ? new Redis({ url: redisUrl, token: redis
 import fs from "fs";
 import path from "path";
 
-const MARKETS_PATH = fs.existsSync(path.resolve(process.cwd(), "data/markets.json")) 
-  ? path.resolve(process.cwd(), "data/markets.json")
-  : path.resolve(process.cwd(), "app/data/markets.json");
-
-const USERS_PATH = fs.existsSync(path.resolve(process.cwd(), "data/users.json"))
-  ? path.resolve(process.cwd(), "data/users.json")
-  : path.resolve(process.cwd(), "app/data/users.json");
+const MARKETS_PATH = path.resolve(process.cwd(), "data/markets.json");
+const USERS_PATH = path.resolve(process.cwd(), "data/users.json");
 
 // Local storage fallback for development
 function readLocalMarkets(): MarketMeta[] {
