@@ -303,6 +303,16 @@ export async function submitTrade(params: {
     });
 
     const sponsorData = await sponsorResponse.json();
+    
+    // FALLBACK: If sponsorship is not configured on the server, try direct submission
+    if (!sponsorResponse.ok && sponsorData.error === "SPONSOR_NOT_CONFIGURED") {
+      console.warn("Sponsorship not configured, submitting directly to Horizon...");
+      const server = new Horizon.Server("https://horizon-testnet.stellar.org");
+      const directTx = TransactionBuilder.fromXDR(signedXdr, Networks.TESTNET) as Transaction;
+      const result = await server.submitTransaction(directTx);
+      return { txHash: result.hash, message: "Transaction successful (Direct submission)!" };
+    }
+
     if (!sponsorResponse.ok || !sponsorData.success) {
       throw new Error(sponsorData.error || "Sponsorship failed.");
     }

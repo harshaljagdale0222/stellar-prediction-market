@@ -21,8 +21,8 @@ export async function POST(req: NextRequest) {
 
     const sponsorSecret = process.env.SPONSOR_SECRET_KEY;
     if (!sponsorSecret) {
-      console.error("CRITICAL: SPONSOR_SECRET_KEY is not defined in environment.");
-      return NextResponse.json({ error: "Server configuration error" }, { status: 500 });
+      console.warn("SPONSOR_SECRET_KEY is not defined. Falling back to direct submission.");
+      return NextResponse.json({ error: "SPONSOR_NOT_CONFIGURED" }, { status: 503 });
     }
 
     const sponsorKeypair = Keypair.fromSecret(sponsorSecret);
