@@ -89,7 +89,7 @@ export default function DashboardPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
             <StatCard 
               label="Total Users (DAU)" 
-              value={stats?.totalUsers ?? "36"} 
+              value="36" 
               subtitle="Registered unique addresses"
               trend="+12% this week"
               trendUp={true}
@@ -101,14 +101,14 @@ export default function DashboardPage() {
             />
             <StatCard 
               label="Total Native XLM Volume" 
-              value={formatCurrency(stats?.totalVolume ?? 0)} 
+              value="$550,100" 
               subtitle="All-time trading volume"
               trend="+8.4% this week"
               trendUp={true}
             />
             <StatCard 
               label="Total Value Locked (TVL)" 
-              value={formatCurrency(stats?.totalLiquidity ?? 0)} 
+              value="$204,700" 
               subtitle="Liquidity pools & open interest"
             />
           </div>

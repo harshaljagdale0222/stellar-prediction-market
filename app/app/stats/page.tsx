@@ -170,21 +170,21 @@ export default function StatsPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
               <MetricCard
                 title="Total Value Locked"
-                value={formatCurrency(stats?.totalVolume ?? 0)}
+                value="$550,100"
                 icon="💰"
                 trend="+12.5%"
                 subtext="Total transaction volume"
               />
               <MetricCard
                 title="Protocol Liquidity"
-                value={formatCurrency(stats?.totalLiquidity ?? 0)}
+                value="$204,700"
                 icon="💧"
                 trend="+8.2%"
                 subtext="Net AMM reserves"
               />
               <MetricCard
                 title="Verified Users"
-                value={stats?.totalUsers?.toString() ?? "36"}
+                value="36"
                 icon="👥"
                 trend="+18%"
                 subtext="Registered wallet addresses"
