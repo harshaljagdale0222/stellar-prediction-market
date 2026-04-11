@@ -8,7 +8,7 @@ Welcome to **Stellar Predict**, a production-ready decentralized prediction mark
 
 ## ✅ Black Belt Submission Checklist
 Ensure your project meets all requirements before submitting:
-*   [x] **47 Verified on Stellar Expert**
+*   [x] **36 Verified on Stellar Expert**
 *   [x] **Advanced Feature: Fee Sponsorship** (Gasless Transactions)
 *   [x] **Live Metrics Dashboard** (DAU, Transactions, Retention)
 *   [x] **Data Indexing Implemented** (Optimized data fetching)
