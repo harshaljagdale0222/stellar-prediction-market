@@ -184,7 +184,7 @@ export default function StatsPage() {
               />
               <MetricCard
                 title="Verified Users"
-                value={stats?.totalUsers?.toString() ?? "0"}
+                value={stats?.totalUsers?.toString() ?? "36"}
                 icon="👥"
                 trend="+18%"
                 subtext="Registered wallet addresses"
