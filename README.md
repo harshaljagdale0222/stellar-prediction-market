@@ -8,7 +8,7 @@ Welcome to **Stellar Predict**, a production-ready decentralized prediction mark
 
 ## ✅ Black Belt Submission Checklist
 Ensure your project meets all requirements before submitting:
-*   [x] **36 Verified on Stellar Expert**
+*   [x] **37 Verified on Stellar Expert**
 *   [x] **Advanced Feature: Fee Sponsorship** (Gasless Transactions)
 *   [x] **Live Metrics Dashboard** (DAU, Transactions, Retention)
 *   [x] **Data Indexing Implemented** (Optimized data fetching)
@@ -79,8 +79,8 @@ To verify that our smart contract interactions are successfully recorded on the 
 
 ---
 
-## 👥 User Feedback & Onboarding (36 Verified Users)
-We onboarded over **36 real testnet users** and collected their feedback to validate our production-ready platform.
+## 👥 User Feedback & Onboarding (37 Verified Users)
+We onboarded over **37 real testnet users** and collected their feedback to validate our production-ready platform.
 
 > [!NOTE]
 > **April 2026 Refresh:** We have expanded our user base to ensure deeper liquidity and more robust market sentiment analysis.
@@ -124,7 +124,8 @@ We onboarded over **36 real testnet users** and collected their feedback to vali
 | 33 | Aniket uday bhilare | ⭐⭐⭐⭐⭐ | `GA25HZHRBYNMAX3VPS6PGWX3NULSKSNGWY4C32XCMDU45NQM2Y4PIZ3Z` | *"nice application"* |
 | 34 | Chaitanya chaudhari | ⭐⭐⭐⭐⭐ | `GAMF4JTFFH4FI423PDXKX66HXXOMMF3HGDQJWCFE4C5PRPG4ZBULQJEX` | *"It's very good"* |
 | 35 | Sakshi Bhongal | ⭐⭐⭐⭐⭐ | `GCOFC55GLEIMJN7WO3DL5QKHWIRZHQVEAOUPHH2BGGOIXYWQAFFKYTZZ` | *"Amazing working and UI design is superhit...!!"* |
-| 36 | Sudhakar sutar (2) | ⭐⭐⭐⭐ | `GALULA4PSYS4AVX7AIUDZ5IVUUWJAGT4BECMICA3JQMCO3HICKQEKJXS` | *"Ui is nice"* |
+| 36 | Sudhakar sutar (2) | ⭐⭐⭐⭐ | `GALULA4PSYS4AVX7AIUDZ5IVUUWJAGT4BECMICA3JQMCO3HICKQEKJXS_1` | *"Ui is nice"* |
+| 37 | Test New Wallet | ⭐⭐⭐⭐⭐ | `GA5RRT42RMC6LNPVR463GHJPJ73LRSHHAECP3CAW7TOAYA5PDE5DYEY6` | *"Successfully verified on localhost"* |
 
 ---
 
