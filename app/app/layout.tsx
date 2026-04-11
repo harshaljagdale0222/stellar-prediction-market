@@ -3,17 +3,7 @@ import { Inter, Space_Grotesk } from "next/font/google";
 import { WalletProvider } from "./context/WalletContext";
 import "./globals.css";
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-});
 
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  variable: "--font-space-grotesk",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   title: "StellarPredict — Decentralized Prediction Markets",
@@ -24,10 +14,12 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable}`}>
-      <body className="antialiased font-sans" suppressHydrationWarning>
+    <html lang="en">
+      <body className="antialiased font-sans" suppressHydrationWarning style={{ fontFamily: 'Inter, system-ui, sans-serif' }}>
         <WalletProvider>{children}</WalletProvider>
       </body>
     </html>
   );
 }
+
+
