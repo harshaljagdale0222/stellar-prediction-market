@@ -125,7 +125,7 @@ We onboarded over **37 real testnet users** and collected their feedback to vali
 | 34 | Chaitanya chaudhari | ⭐⭐⭐⭐⭐ | `GAMF4JTFFH4FI423PDXKX66HXXOMMF3HGDQJWCFE4C5PRPG4ZBULQJEX` | *"It's very good"* |
 | 35 | Sakshi Bhongal | ⭐⭐⭐⭐⭐ | `GCOFC55GLEIMJN7WO3DL5QKHWIRZHQVEAOUPHH2BGGOIXYWQAFFKYTZZ` | *"Amazing working and UI design is superhit...!!"* |
 | 36 | Sudhakar sutar (2) | ⭐⭐⭐⭐ | `GALULA4PSYS4AVX7AIUDZ5IVUUWJAGT4BECMICA3JQMCO3HICKQEKJXS_1` | *"Ui is nice"* |
-| 37 | Test New Wallet | ⭐⭐⭐⭐⭐ | `GA5RRT42RMC6LNPVR463GHJPJ73LRSHHAECP3CAW7TOAYA5PDE5DYEY6` | *"Successfully verified on localhost"* |
+| 37 | Adarsh Bhagwat | ⭐⭐⭐⭐ | `GCFZUUILGUKPOLLVX5IEP33IDUUBPC7P2F7IFVZGX72ZG5LI3E3TN2SM` | *"Nice Working"* |
 
 ---
 
