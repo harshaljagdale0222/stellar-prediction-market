@@ -79,11 +79,11 @@ To verify that our smart contract interactions are successfully recorded on the 
 
 ---
 
-## 👥 User Feedback & Onboarding (47 Verified Users)
-We onboarded over **47 real testnet users** and collected their feedback to validate our production-ready platform.
+## 👥 User Feedback & Onboarding (36 Verified Users)
+We onboarded over **36 real testnet users** and collected their feedback to validate our production-ready platform.
 
 > [!NOTE]
-> **April 2026 Refresh:** We have expanded our user base by over 50% this month to ensure deeper liquidity and more robust market sentiment analysis.
+> **April 2026 Refresh:** We have expanded our user base to ensure deeper liquidity and more robust market sentiment analysis.
 
 🔗 **[View Response Sheet (Google Sheets)](https://docs.google.com/spreadsheets/d/1nz_0K7f3Ic_0r1myMdyvlGF89KjEEFW1JRM_u7wb6vM/edit?usp=sharing)**
 
@@ -106,36 +106,25 @@ We onboarded over **47 real testnet users** and collected their feedback to vali
 | 15 | Sarthak Dhere | ⭐⭐⭐⭐⭐ | `GCRYPAQB3TFLQE727TA3R723QIEPTP5KCMP7OMH4HVXNLCEUKPD4AZJP` | *"Nice application"* |
 | 16 | Akanksha Shinde | ⭐⭐⭐⭐⭐ | `GA7VZIO2EVGVIUD2L43DLVCTZBXLSHE73Z7OC3VIY5GQH5MTAW5Q22UA` | *"atractive user interface"* |
 | 17 | Aarya Nagawade | ⭐⭐⭐⭐⭐ | `GAISTFMSZ7VBSENXYUFEKORYNPLMT745R6MOXABGE7X36QJMGN2TX2CE` | *"Its nice to work"* |
-| 18 | Mansi Baban Sandbhor | ⭐⭐⭐⭐⭐ | `GBN2M3B4V5C6X7Z8A9S0D1F2G3H4J5K6L7M8N9B0V1C2X3Z4A5S6D7` | *"The functionality works smoothly"* |
+| 18 | Mansi Baban Sandbhor | ⭐⭐⭐⭐⭐ | `GDLLRKGBCPUYRJE3HFYUNI46PQQNA5HPP6QR43FDPZJXNVHEW5QJ5LKV` | *"The functionality works smoothly"* |
 | 19 | janhavi lipare | ⭐⭐⭐⭐⭐ | `GBLUMAX4IIPS54AIGD5WXRRAXISG4HLV3BE3YR3SQAD3GZSXRTVJY5GI` | *"this app is so fabulous , useful and works smoothly "* |
 | 20 | Jadhav Vaibhavi | ⭐⭐⭐⭐ | `GDBIJAOFPMGQWDUUQTJ3YFHI44MWHQHPALJQG7ZDA7D5WWEDKJYA4OHA` | *"Great app !!!"* |
-| 21 | Nandini Jadhav | ⭐⭐⭐⭐⭐ | `GCT3E7HUMKYVC2MXFURGRQJF5PMS4V6ZFZQORNW75L2TZIWFF2HM5CMH` | *"Great project."* |
+| 21 | Nandini Jadhav | ⭐⭐⭐⭐⭐ | `GCT3E7HUMKYVC2MXFURGRQJF5PMS4V6ZFZQORNW75L2TZIWFF2HM5CMH` | *"Promising project, decentralized prediction systems."* |
 | 22 | Mayuri Jagdale | ⭐⭐⭐⭐ | `GD5CPYM7ZFBTWFD5WHAIMMHSF5TRFOXKJUUHIVCXSIVJXVS6YRJIAMJP` | *"Good Working"* |
 | 23 | Swaraj Ghume | ⭐⭐⭐⭐⭐ | `GAR52QXZW7BQLPOQZQRDAKIHQOLMI3VRNKPI23LX33FVUUO26OQOFT4L` | *"Good Working"* |
 | 24 | Deepali Pawar | ⭐⭐⭐⭐ | `GA22HDH77P7CXT2MKTHAS6OXXYQPC56KFX3A2KPS2XBYS5OF3JCDHIPD` | *"Excellent Work"* |
 | 25 | Vaibhavi Agale | ⭐⭐⭐⭐⭐ | `GALWWEGHOMU5YODTZBVGPFP2OHCJH5VO3VKWNMW7ZNT6OECINVPQT7SQ` | *"overall a great website and user interface"* |
-| 26 | Kushal Mehra | ⭐⭐⭐⭐⭐ | `GCLV5X3M4N5B6V7C8X9Z0L1K2J3H4G5F6D7S8A9Q0W1E2R3T4Y5U6I7` | *"Very smooth UI"* |
-| 27 | Vinayak Tekawade | ⭐⭐⭐⭐ | `GAEDQ7LNEPEGLCWJHC4DOFCNRZY3AGPBLO4VO2TDHDFNLM7F3T5IPBIT` | *"good"* |
-| 28 | Anushka Jadhav | ⭐⭐⭐⭐ | `GCPQV7JCPIEQNXYRY54BCT3M7L24EM5XVJNSQAGXRFOKQJI7Z3E6LYLZ` | *"nice"* |
+| 26 | Vinayak Tekawade | ⭐⭐⭐⭐ | `GAEDQ7LNEPEGLCWJHC4DOFCNRZY3AGPBLO4VO2TDHDFNLM7F3T5IPBIT` | *"good"* |
+| 27 | Anushka Jadhav | ⭐⭐⭐⭐ | `GCPQV7JCPIEQNXYRY54BCT3M7L24EM5XVJNSQAGXRFOKQJI7Z3E6LYLZ` | *"nice"* |
+| 28 | Vedantika Ashok Phalake | ⭐⭐⭐⭐⭐ | `-` | *"Excellent work"* |
 | 29 | Sakshi Dattatray Pawar | ⭐⭐⭐⭐ | `GANBGUREB5ZAY26ZIAB6VHVQ7CG4KNQMEILZUG2ZWLEPF3DUARLMRHBS` | *"Good service"* |
-| 30 | Kavita Dhanaji Dhebe | ⭐⭐⭐⭐⭐ | `GBIXQLFE54OK32JKGLK3MLEAJ35IIX6RVHJV4YWALBCWKEYXOWEDXE2P` | *"Good"* |
-| 32 | Aditya Kulkarni | ⭐⭐⭐⭐⭐ | `GCATAASNFHODIKA4VTIEZHONZB3BGZJL42FXHHZ3VS6YKX2PCDIJ3LDY` | *"Great progress in April"* |
-| 33 | Neha Sharma | ⭐⭐⭐⭐ | `GCOFC55GLEIMJN7WO3DL5QKHWIRZHQVEAOUPHH2BGGOIXYWQAFFKYTZZ` | *"Smooth trades"* |
-| 34 | Rahul Deshmukh | ⭐⭐⭐⭐⭐ | `GAO6ZRL5REJK6P6UKXNVGZUPM4F2T5A7R7YIIDW3VZ4I6R2X3V6I7DLR` | *"Best prediction app"* |
-| 35 | Snehal Patil | ⭐⭐⭐⭐⭐ | `GBU4H5O6P2DLYWIXV5S6J3QWERT7M9N2B4V6C8X0Z1L3K7A9S5D4F8G` | *"Love the gasless feature"* |
-| 36 | Amit Shinde | ⭐⭐⭐⭐ | `GD9L2K8X1P5J4M3N7V6C8B0Z9X1L2K3M4N5V6C8B0Z9X1L2K3M4N5V` | *"Looking forward to more markets"* |
-| 37 | Priyanka More | ⭐⭐⭐⭐⭐ | `GAF1H2J3K4L5M6N7P8Q9R0S1T2U3V4W5X6Y7Z8A9B0C1D2E3F4G5H6` | *"Very transparent"* |
-| 38 | Sameer Khan | ⭐⭐⭐⭐⭐ | `GBC8V7C6X5V4N3M2B1V0C9X8Z7V6C5X4V3N2M1B0V9C8X7Z6V5C4X3` | *"Excellent UI improvements"* |
-| 39 | Tanvi Joshi | ⭐⭐⭐⭐ | `GD2W3E4R5T6Y7U8I9O0P1A2S3D4F5G6H7J8K9L0Z1X2C3V4B5N6M7` | *"Easy to use"* |
-| 40 | Omkar Pawar | ⭐⭐⭐⭐⭐ | `GA1S2D3F4G5H6J7K8L9Z0X1C2V3B4N5M6Q7W8E9R0T1Y2U3I4O5P6` | *"Highly recommended"* |
-| 41 | Sayali Gade | ⭐⭐⭐⭐⭐ | `GB9N8B7V6C5X4Z3A2S1D0F9G8H7J6K5L4M3N2B1V0C9X8Z7V6C5X4` | *"Great April update"* |
-| 42 | Vishal Mane | ⭐⭐⭐⭐ | `GC1M2N3B4V5C6X7Z8A9S0D1F2G3H4J5K6L7Z8X9C0V1B2N3M4Q5W` | *"Good liquidity"* |
-| 43 | Akshata Rao | ⭐⭐⭐⭐⭐ | `GDR0T1Y2U3I4O5P6A7S8D9F0G1H2J3K4L5M6N7B8V9C0X1Z2A3S4` | *"Perfect!"* |
-| 44 | Tejas Belhe | ⭐⭐⭐⭐⭐ | `GA7H8J9K0L1Z2X3C4V5B6N7M8Q9W0E1R2T3Y4U5I6O7P8A9S0D1F2` | *"Amazing project"* |
-| 45 | Shraddha Kale | ⭐⭐⭐⭐ | `GB1Z2X3C4V5B6N7M8Q9W0E1R2T3Y4U5I6O7P8A9S0D1F2G3H4J5K6` | *"User friendly"* |
-| 46 | Rohit Mehta | ⭐⭐⭐⭐⭐ | `GCD4F5G6H7J8K9L0Z1X2C3V4B5N6M7Q8W9E0R1T2Y3U4I5O6P7A8` | *"Sponsorship works great"* |
-| 47 | Mansi Shah | ⭐⭐⭐⭐⭐ | `GDQ1W2E3R4T5Y6U7I8O9P0A1S2D3F4G5H6J7K8L9Z0X1C2V3B4N5` | *"Reliable platform"* |
-| 48 | Harsh Vardhan | ⭐⭐⭐⭐⭐ | `GA1A2S3D4F5G6H7J8K9L0Z1X2C3V4B5N6M7Q8W9E0R1T2Y3U4I5O6` | *"Top tier project"* |
+| 30 | Sanjivani sanjay jadhav | ⭐⭐⭐⭐⭐ | `GAF4SUBPSJL6QATQILXS6JK7X4A6J6FA3UXOR2A2FQM6U2QMQNJ5TYPH` | *"Excellent work"* |
+| 31 | Kavita Dhanaji Dhebe | ⭐⭐⭐⭐⭐ | `GBIXQLFE54OK32JKGLK3MLEAJ35IIX6RVHJV4YWALBCWKEYXOWEDXE2P` | *"Good"* |
+| 32 | Yuvraj Vibhute | ⭐⭐⭐⭐⭐ | `GBIYHDBRFSL32NXJQFEH5YL3XHQOGAIRCZ2PMUIC6M7EDJK4DD7BZELG` | *"nice application , user friendly , easy to use"* |
+| 33 | Aniket uday bhilare | ⭐⭐⭐⭐⭐ | `GA25HZHRBYNMAX3VPS6PGWX3NULSKSNGWY4C32XCMDU45NQM2Y4PIZ3Z` | *"nice application"* |
+| 34 | Chaitanya chaudhari | ⭐⭐⭐⭐⭐ | `GAMF4JTFFH4FI423PDXKX66HXXOMMF3HGDQJWCFE4C5PRPG4ZBULQJEX` | *"It's very good"* |
+| 35 | Sakshi Bhongal | ⭐⭐⭐⭐⭐ | `GCOFC55GLEIMJN7WO3DL5QKHWIRZHQVEAOUPHH2BGGOIXYWQAFFKYTZZ` | *"Amazing working and UI design is superhit...!!"* |
+| 36 | Sudhakar sutar (2) | ⭐⭐⭐⭐ | `GALULA4PSYS4AVX7AIUDZ5IVUUWJAGT4BECMICA3JQMCO3HICKQEKJXS` | *"Ui is nice"* |
 
 ---
 
