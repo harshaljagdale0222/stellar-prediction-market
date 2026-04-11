@@ -18,9 +18,9 @@ export async function GET() {
     stats: {
       totalMarkets: markets.length,
       activeMarkets,
-      totalVolume: 550100,
-      totalLiquidity: 204700,
-      totalUsers: 36,
+      totalVolume,
+      totalLiquidity,
+      totalUsers,
     },
   });
 }

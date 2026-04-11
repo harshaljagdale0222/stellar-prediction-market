@@ -54,9 +54,9 @@ function StatsBar({ stats }: { stats: any }) {
   const items = [
     { label: "Total Markets", value: stats?.totalMarkets ?? "0" },
     { label: "Active", value: stats?.activeMarkets ?? "0" },
-    { label: "Total Volume", value: "$550,100" },
-    { label: "Total Liquidity", value: "$204,700" },
-    { label: "Real Users", value: "36" },
+    { label: "Total Volume", value: stats ? formatCurrency(stats.totalVolume) : "0" },
+    { label: "Total Liquidity", value: stats ? formatCurrency(stats.totalLiquidity) : "0" },
+    { label: "Real Users", value: stats?.totalUsers ?? "0" },
   ];
   return (
     <div className="glass border-b border-white/5 relative z-40 bg-slate-950/50 mt-16">
