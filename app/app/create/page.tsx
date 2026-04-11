@@ -31,7 +31,7 @@ export default function CreateMarketPage() {
       const res = await fetch("/api/markets", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, address }),
       });
       if (!res.ok) {
         const d = await res.json();

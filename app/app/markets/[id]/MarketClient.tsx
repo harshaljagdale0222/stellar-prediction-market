@@ -211,7 +211,7 @@ function TradingPanel({
       fetch(`/api/markets/${market.id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(patchData),
+        body: JSON.stringify({ ...patchData, address: walletAddress }),
       }).catch(console.error);
       onTradeSuccess(patchData);
       setTimeout(() => router.refresh(), 500);

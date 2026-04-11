@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getAllMarkets, createMarket } from "../../../lib/db";
+import { getAllMarkets, createMarket, logUser } from "../../../lib/db";
 
 export const revalidate = 30; // Cache for 30 seconds
 
@@ -10,7 +10,14 @@ export async function GET() {
 
 export async function POST(req: Request) {
   const body = await req.json();
-  const { contractAddress, title, description, category, emoji, endDate } = body;
+  const { contractAddress, title, description, category, emoji, endDate, address } = body;
+
+  if (address) {
+    try {
+      await logUser(address);
+    } catch (e) {}
+  }
+
 
   if (!contractAddress || !title || !endDate) {
     return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
