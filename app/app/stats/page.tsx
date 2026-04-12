@@ -125,15 +125,15 @@ export default function StatsPage() {
 
   useEffect(() => {
     const fetchStats = () => {
-        fetch("/api/stats")
-            .then((r) => r.json())
-            .then((data) => {
-                if (data && data.stats) {
-                    setStats(data.stats);
-                    setLoading(false);
-                }
-            })
-            .catch(err => console.error("Stats refresh error:", err));
+      fetch("/api/stats")
+        .then((r) => r.json())
+        .then((data: { stats: any }) => {
+          if (data && data.stats) {
+            setStats(data.stats);
+            setLoading(false);
+          }
+        })
+        .catch((err) => console.error("Stats refresh error:", err));
     };
 
     fetchStats();
