@@ -1,7 +1,41 @@
+// SPDX-License-Identifier: MIT
+//! # World Trade Factory™ — Prediction Market Contract (Stellar Soroban)
+//!
+//! ## CONTRACT ABI & SPECIFICATION (WP5-B)
+//!
+//! ### Calibrated AMM & Pricing:
+//! - Implements depth scalar $\alpha \in [1000, 500000]$ basis points (0.10x to 50.00x).
+//! - Continuous time-decay curve $\delta(t)$ decaying linearly from 10,000 BPS to 2,000 BPS floor.
+//! - Discourages last-second sniper trades with 5x price impact widening near expiry.
+//!
+//! ### On-Chain Resolution & Oracle Hook:
+//! - Entry point: `resolve(outcome: OutcomeId, evidence_hash: BytesN<32>)`
+//! - Restricted to designated resolver set at creation time.
+//! - Enforces `dispute_window_hours` challenge period before final settlement.
+//! - Emits `MarketResolved`, `DisputeWindowOpen`, `DisputeWindowClosed`.
+//! - Distributes winning redemptions proportionally 1:1, residual unredeemed to LPs.
+//!
+//! ### Modules:
+//! - `amm`: Pure depth-scalar and time-decay AMM math.
+//! - `resolution`: Resolver auth, dispute window lifecycle, redemptions.
+//! - `events`: Structured Soroban event publishers.
+//! - `types`: Core structs, enums, and structured error codes.
 #![no_std]
 
+pub mod amm;
+pub mod events;
+pub mod resolution;
+pub mod types;
+
+#[cfg(test)]
+pub mod test_amm;
+#[cfg(test)]
+pub mod test_resolution;
+#[cfg(test)]
+pub mod test_events;
+
 use soroban_sdk::{
-    contract, contractimpl, contracttype, vec, Address, Env, IntoVal, Symbol, token::{Client as TokenClient},
+    contract, contractimpl, contracttype, vec, Address, BytesN, Env, IntoVal, Symbol, token::{Client as TokenClient},
 };
 
 #[derive(Clone, PartialEq, Eq)]
