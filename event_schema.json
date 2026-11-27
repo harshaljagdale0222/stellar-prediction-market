@@ -1,0 +1,369 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WTF Prediction Market Soroban Event Schema",
+  "description": "Canonical Soroban contract event schema consumed by wtf-pm-frontend and indexers for World Trade Factory™ prediction markets.",
+  "version": "1.0.0",
+  "contract": "wtf-prediction-market",
+  "events": {
+    "MarketCreated": {
+      "name": "MarketCreated",
+      "description": "Emitted when a new calibrated prediction market is initialized by a market creator.",
+      "topics": [
+        {
+          "name": "topic_0",
+          "type": "Symbol",
+          "value": "market",
+          "description": "Primary topic namespace"
+        },
+        {
+          "name": "topic_1",
+          "type": "Symbol",
+          "value": "created",
+          "description": "Event action name"
+        },
+        {
+          "name": "market_id",
+          "type": "Address",
+          "description": "The newly deployed market contract address on Stellar"
+        }
+      ],
+      "data": {
+        "fields": [
+          {
+            "name": "creator",
+            "type": "Address",
+            "description": "Account address of the market creator"
+          },
+          {
+            "name": "resolver",
+            "type": "Address",
+            "description": "Designated resolution oracle / authority address"
+          },
+          {
+            "name": "alpha_bps",
+            "type": "u32",
+            "description": "Liquidity depth scalar in basis points (10,000 = 1.0x)"
+          },
+          {
+            "name": "resolution_deadline",
+            "type": "u64",
+            "description": "Unix timestamp in seconds when trading closes and resolution becomes eligible"
+          },
+          {
+            "name": "dispute_window_hours",
+            "type": "u32",
+            "description": "Duration of the challenge window in hours following resolution submission"
+          }
+        ]
+      },
+      "example": {
+        "topics": [
+          "market",
+          "created",
+          "CB6LXZ7BQL7Z4PQZ6Y37YF24Y477JUSC2F2J4L2J4L2J4L2J4L2J4L2J"
+        ],
+        "data": {
+          "creator": "GA7QYNF7SOWQ3GLR2BGMZEHXAVIRZA4KVWLTJJFC7MGXUA74P7UJVWAC",
+          "resolver": "GB6NVEN5HSUBKMYCE5ZOWSK5K2EOISWB2WKDYQNP7IGRA3LT45W3LF6A",
+          "alpha_bps": 10000,
+          "resolution_deadline": 1735689600,
+          "dispute_window_hours": 24
+        }
+      }
+    },
+    "TradePlaced": {
+      "name": "TradePlaced",
+      "description": "Emitted when a trader buys or sells outcome tokens through the calibrated AMM.",
+      "topics": [
+        {
+          "name": "topic_0",
+          "type": "Symbol",
+          "value": "trade",
+          "description": "Primary topic namespace"
+        },
+        {
+          "name": "topic_1",
+          "type": "Symbol",
+          "value": "placed",
+          "description": "Event action name"
+        },
+        {
+          "name": "market_id",
+          "type": "Address",
+          "description": "Prediction market contract address"
+        }
+      ],
+      "data": {
+        "fields": [
+          {
+            "name": "trader",
+            "type": "Address",
+            "description": "Wallet address of the trader"
+          },
+          {
+            "name": "is_yes",
+            "type": "bool",
+            "description": "True if trade is on YES outcome, false for NO outcome"
+          },
+          {
+            "name": "collateral_in",
+            "type": "i128",
+            "description": "Collateral tokens exchanged (positive for buy, negative for sell)"
+          },
+          {
+            "name": "tokens_out",
+            "type": "i128",
+            "description": "Outcome tokens received (or collateral received on sell)"
+          },
+          {
+            "name": "price_impact_bps",
+            "type": "u32",
+            "description": "Calculated price impact in basis points (100 = 1.00%)"
+          },
+          {
+            "name": "timestamp",
+            "type": "u64",
+            "description": "Ledger execution timestamp in Unix seconds"
+          }
+        ]
+      },
+      "example": {
+        "topics": [
+          "trade",
+          "placed",
+          "CB6LXZ7BQL7Z4PQZ6Y37YF24Y477JUSC2F2J4L2J4L2J4L2J4L2J4L2J"
+        ],
+        "data": {
+          "trader": "GCAXJ5FHYWXYYF4F7K3F7Q24J2F4L2J4L2J4L2J4L2J4L2J4L2J4L2J4",
+          "is_yes": true,
+          "collateral_in": 100000000,
+          "tokens_out": 195420000,
+          "price_impact_bps": 142,
+          "timestamp": 1735100120
+        }
+      }
+    },
+    "LiquidityAdded": {
+      "name": "LiquidityAdded",
+      "description": "Emitted when a liquidity provider deposits collateral into the AMM pool.",
+      "topics": [
+        {
+          "name": "topic_0",
+          "type": "Symbol",
+          "value": "liquid",
+          "description": "Primary topic namespace"
+        },
+        {
+          "name": "topic_1",
+          "type": "Symbol",
+          "value": "added",
+          "description": "Event action name"
+        },
+        {
+          "name": "market_id",
+          "type": "Address",
+          "description": "Prediction market contract address"
+        }
+      ],
+      "data": {
+        "fields": [
+          {
+            "name": "provider",
+            "type": "Address",
+            "description": "Address of the liquidity provider"
+          },
+          {
+            "name": "collateral_amount",
+            "type": "i128",
+            "description": "Amount of collateral deposited in base units"
+          },
+          {
+            "name": "lp_shares_minted",
+            "type": "i128",
+            "description": "Number of LP pool shares issued"
+          },
+          {
+            "name": "timestamp",
+            "type": "u64",
+            "description": "Ledger execution timestamp in Unix seconds"
+          }
+        ]
+      },
+      "example": {
+        "topics": [
+          "liquid",
+          "added",
+          "CB6LXZ7BQL7Z4PQZ6Y37YF24Y477JUSC2F2J4L2J4L2J4L2J4L2J4L2J"
+        ],
+        "data": {
+          "provider": "GA7QYNF7SOWQ3GLR2BGMZEHXAVIRZA4KVWLTJJFC7MGXUA74P7UJVWAC",
+          "collateral_amount": 5000000000,
+          "lp_shares_minted": 5000000000,
+          "timestamp": 1735000000
+        }
+      }
+    },
+    "DisputeWindowOpen": {
+      "name": "DisputeWindowOpen",
+      "description": "Emitted when the designated resolver proposes an outcome, starting the challenge window.",
+      "topics": [
+        {
+          "name": "topic_0",
+          "type": "Symbol",
+          "value": "dispute",
+          "description": "Primary topic namespace"
+        },
+        {
+          "name": "topic_1",
+          "type": "Symbol",
+          "value": "opened",
+          "description": "Event action name"
+        },
+        {
+          "name": "market_id",
+          "type": "Address",
+          "description": "Prediction market contract address"
+        }
+      ],
+      "data": {
+        "fields": [
+          {
+            "name": "proposed_outcome",
+            "type": "OutcomeId",
+            "description": "Proposed outcome (1 = Yes, 2 = No, 3 = Void)"
+          },
+          {
+            "name": "dispute_deadline",
+            "type": "u64",
+            "description": "Unix timestamp when the challenge window expires"
+          },
+          {
+            "name": "timestamp",
+            "type": "u64",
+            "description": "Ledger execution timestamp in Unix seconds"
+          }
+        ]
+      },
+      "example": {
+        "topics": [
+          "dispute",
+          "opened",
+          "CB6LXZ7BQL7Z4PQZ6Y37YF24Y477JUSC2F2J4L2J4L2J4L2J4L2J4L2J"
+        ],
+        "data": {
+          "proposed_outcome": 1,
+          "dispute_deadline": 1735776000,
+          "timestamp": 1735689600
+        }
+      }
+    },
+    "DisputeWindowClosed": {
+      "name": "DisputeWindowClosed",
+      "description": "Emitted when the dispute window lapses without dispute and the outcome is locked.",
+      "topics": [
+        {
+          "name": "topic_0",
+          "type": "Symbol",
+          "value": "dispute",
+          "description": "Primary topic namespace"
+        },
+        {
+          "name": "topic_1",
+          "type": "Symbol",
+          "value": "closed",
+          "description": "Event action name"
+        },
+        {
+          "name": "market_id",
+          "type": "Address",
+          "description": "Prediction market contract address"
+        }
+      ],
+      "data": {
+        "fields": [
+          {
+            "name": "final_outcome",
+            "type": "OutcomeId",
+            "description": "Final confirmed outcome (1 = Yes, 2 = No, 3 = Void)"
+          },
+          {
+            "name": "timestamp",
+            "type": "u64",
+            "description": "Ledger execution timestamp in Unix seconds"
+          }
+        ]
+      },
+      "example": {
+        "topics": [
+          "dispute",
+          "closed",
+          "CB6LXZ7BQL7Z4PQZ6Y37YF24Y477JUSC2F2J4L2J4L2J4L2J4L2J4L2J"
+        ],
+        "data": {
+          "final_outcome": 1,
+          "timestamp": 1735776001
+        }
+      }
+    },
+    "MarketResolved": {
+      "name": "MarketResolved",
+      "description": "Emitted when the market outcome is finalized and winning redemptions are unlocked.",
+      "topics": [
+        {
+          "name": "topic_0",
+          "type": "Symbol",
+          "value": "market",
+          "description": "Primary topic namespace"
+        },
+        {
+          "name": "topic_1",
+          "type": "Symbol",
+          "value": "resolved",
+          "description": "Event action name"
+        },
+        {
+          "name": "market_id",
+          "type": "Address",
+          "description": "Prediction market contract address"
+        }
+      ],
+      "data": {
+        "fields": [
+          {
+            "name": "outcome",
+            "type": "OutcomeId",
+            "description": "Final winning outcome (1 = Yes, 2 = No, 3 = Void)"
+          },
+          {
+            "name": "resolver",
+            "type": "Address",
+            "description": "Address of the resolver who submitted the determination"
+          },
+          {
+            "name": "evidence_hash",
+            "type": "BytesN<32>",
+            "description": "Hex-encoded 32-byte cryptographic hash of resolution evidence"
+          },
+          {
+            "name": "timestamp",
+            "type": "u64",
+            "description": "Ledger execution timestamp in Unix seconds"
+          }
+        ]
+      },
+      "example": {
+        "topics": [
+          "market",
+          "resolved",
+          "CB6LXZ7BQL7Z4PQZ6Y37YF24Y477JUSC2F2J4L2J4L2J4L2J4L2J4L2J"
+        ],
+        "data": {
+          "outcome": 1,
+          "resolver": "GB6NVEN5HSUBKMYCE5ZOWSK5K2EOISWB2WKDYQNP7IGRA3LT45W3LF6A",
+          "evidence_hash": "4a5e326b4f7e8a9d1c2b3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b",
+          "timestamp": 1735776002
+        }
+      }
+    }
+  }
+}
